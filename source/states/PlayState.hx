@@ -1962,9 +1962,9 @@ class PlayState extends MusicBeatState
 
 			case "Quit song":
 				if (isStoryMode)
-					LoadingState.loadAndSwitchState(new StoryMenuState);
+					LoadingState.loadAndSwitchState(new StoryMenuState());
 				else
-					LoadingState.loadAndSwitchState(new FreeplayState);
+					LoadingState.loadAndSwitchState(new FreeplayState());
 
 			case "Restart song":
 				LoadingState.loadAndSwitchState(new PlayState());
