@@ -1,0 +1,12 @@
+{
+    "noteSkin": "",
+    "healthBarImage": "healthBar",
+    "healthBarX": 0,
+    "healthBarY": 640.8,
+    "healthBarDownScrollY": 79.2,
+    "centerHealthBarX": true,
+    "centerHealthBarY": false,
+    "text": [
+        [0, 680.8, true, false, 0, 0, "Score: {score} | Misses: {misses} | Rating: {rating}% - {ratingFC}", "scoreTxt"]
+    ]
+}
