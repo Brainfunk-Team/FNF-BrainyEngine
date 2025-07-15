@@ -29,3 +29,5 @@ As a continuation of Psych Engine, Brainy Engine is an Friday Night Funkin' Modd
 * CheemsAndFriends - Creator of FlxAnimate.
 * Ezhalt - Pessy's Easter Egg Jingle.
 * MaliciousBunny - Video for the Final Update.
+
+[View Old Psych Engine README](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/8f59cb8e3c23c3fc012e61c6e4b7d1e927318846/PSYCH-README.md)
