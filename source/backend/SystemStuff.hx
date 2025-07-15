@@ -26,7 +26,6 @@ class SystemStuff {
         var script = "$" + 'app = New-Object -ComObject WScript.Shell; $' + 'app.Popup("' + message + '", 0, "' + title + '", 0)';
         var p = new Process("powershell", ["-Command", script]);
         p.close();
-        #end
 
         #elseif mac
         var script = 'display notification "' + message + '" with title "' + title + '"';
