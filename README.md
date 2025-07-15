@@ -2,7 +2,7 @@
 
 ---
 
-As a continuation of Psych Engine, Brainy Engine is an Friday Night Funkin' Modding Engine with a focus on making modpacks feel more like source mods, with easy custom UI and custom menus with source.
+As a continuation of Psych Engine, Brainy Engine is an Friday Night Funkin' Modding Engine with a focus on making modpacks feel more like source mods, with easy custom UI and custom menus without source.
 
 
 ## Credits: Brainy Engine Team
