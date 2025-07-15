@@ -14,6 +14,7 @@ enum MainMenuColumn {
 
 class MainMenuState extends MusicBeatState
 {
+	public static var brainyEngineVersion:String = '0.1.0';
 	public static var psychEngineVersion:String = '1.0.4'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 	public static var curColumn:MainMenuColumn = CENTER;
@@ -93,7 +94,10 @@ class MainMenuState extends MusicBeatState
 			rightItem = createMenuItem(rightOption, FlxG.width - 60, 490);
 			rightItem.x -= rightItem.width;
 		}
-
+		var brainyVer:FlxText = new FlxText(12, FlxG.height - 64, 0, "Brainy Engine v" + brainyEngineVersion, 12);
+		brainyVer.scrollFactor.set();
+		brainyVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(brainyVer);
 		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		psychVer.scrollFactor.set();
 		psychVer.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);

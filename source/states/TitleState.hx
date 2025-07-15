@@ -1,6 +1,7 @@
 package states;
 
 import backend.WeekData;
+import backend.Paths;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -121,7 +122,11 @@ class TitleState extends MusicBeatState
 	{
 		persistentUpdate = true;
 		if (!initialized && FlxG.sound.music == null)
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			if(ClientPrefs.data.menuMusic != 'Vanilla')
+				FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
+			else
+				FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")));
+
 
 		loadJsonData();
 		#if TITLE_SCREEN_EASTER_EGG easterEggData(); #end

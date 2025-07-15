@@ -129,6 +129,14 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 		#end
+
+		var option:Option = new Option('Menu Music:',
+			"What song do you prefer for the Menu?",
+			'menuMusic',
+			STRING,
+			['None', 'Vanilla', 'Custom']);
+		addOption(option);
+		option.onChange = onChangeMenuMusic;
 		
 		var option:Option = new Option('Pause Music:',
 			"What song do you prefer for the Pause Screen?",
@@ -198,6 +206,21 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 	}
 
 	var changedMusic:Bool = false;
+
+	function onChangeMenuMusic()
+	{
+		if(ClientPrefs.data.menuMusic == 'None')
+			FlxG.sound.music.volume = 0;
+		else
+			if(ClientPrefs.data.menuMusic != 'Vanilla')
+				FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
+			else
+				FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")));
+
+
+		changedMusic = true;
+	}
+
 	function onChangePauseMusic()
 	{
 		if(ClientPrefs.data.pauseMusic == 'None')
