@@ -5,6 +5,7 @@ import backend.StageData;
 import backend.WeekData;
 import backend.Song;
 import backend.Rating;
+import backend.SystemStuff;
 
 import flixel.FlxBasic;
 import flixel.FlxObject;
@@ -1936,27 +1937,84 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
+	private static var refOnly:Array<String> =
+	[
+		"",
+		"Block access to chart editor",
+		"Quit song",
+		"Restart song",
+		"Load song",
+		"Insta-kill",
+		"Insta-kill and show popup",
+		"Insta-kill and show notification",
+		"Crash game",
+		"Crash game and show popup",
+		"Crash game and show notification"
+	];
+
 	function openChartEditor()
 	{
-		canResync = false;
-		FlxG.camera.followLerp = 0;
-		persistentUpdate = false;
-		chartingMode = true;
-		paused = true;
+		var seperate = SONG.sevenEventValue.split(",");
 
-		if(FlxG.sound.music != null)
-			FlxG.sound.music.stop();
-		if(vocals != null)
-			vocals.pause();
-		if(opponentVocals != null)
-			opponentVocals.pause();
+		switch (SONG.sevenEvent) {
+			case "Block access to chart editor":
+				trace("Chart Editor access blocked via Seven Event!");
 
-		#if DISCORD_ALLOWED
-		DiscordClient.changePresence("Chart Editor", null, null, true);
-		DiscordClient.resetClientID();
-		#end
+			case "Quit song":
+				if (isStoryMode)
+					LoadingState.loadAndSwitchState(new StoryMenuState);
+				else
+					LoadingState.loadAndSwitchState(new FreeplayState);
 
-		MusicBeatState.switchState(new ChartingState());
+			case "Restart song":
+				LoadingState.loadAndSwitchState(new PlayState());
+
+			case "Load song":
+				Song.loadFromJson(SONG.sevenEventValue, SONG.sevenEventValue);
+				LoadingState.loadAndSwitchState(new PlayState());
+
+			case "Insta-kill":
+				health = 0;
+
+			case "Insta-kill and show popup":
+				SystemStuff.popup(seperate[0].trim(), seperate[1].trim());
+				health = 0;
+			
+			case "Insta-kill and show notification":
+				SystemStuff.notification(seperate[0].trim(), seperate[1].trim());
+				health = 0;
+
+			case "Crash game":
+				SystemStuff.crash(true);
+
+			case "Crash game and show popup":
+				SystemStuff.crash(true, true, seperate[0].trim(), seperate[1].trim());
+
+			case "Crash game and show notification":
+				SystemStuff.notification(seperate[0].trim(), seperate[1].trim());
+				SystemStuff.crash(true);
+
+			default:
+				canResync = false;
+				FlxG.camera.followLerp = 0;
+				persistentUpdate = false;
+				chartingMode = true;
+				paused = true;
+
+				if(FlxG.sound.music != null)
+					FlxG.sound.music.stop();
+				if(vocals != null)
+					vocals.pause();
+				if(opponentVocals != null)
+					opponentVocals.pause();
+
+				#if DISCORD_ALLOWED
+				DiscordClient.changePresence("Chart Editor", null, null, true);
+				DiscordClient.resetClientID();
+				#end
+
+				MusicBeatState.switchState(new ChartingState());
+		}
 	}
 
 	function openCharacterEditor()

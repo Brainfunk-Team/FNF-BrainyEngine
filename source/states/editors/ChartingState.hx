@@ -84,7 +84,23 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
 		['Set Property', "Value 1: Variable name\nValue 2: New value"],
-		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"]
+		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"],
+		["Show Credits", "Value 1: Person to credit and icon, seperated by a comma\nValue 2: Time (in steps)"]
+	];
+
+	public static var sevenEvents:Array<String> =
+	[
+		"",
+		"Block access to chart editor",
+		"Quit song",
+		"Restart song",
+		"Load song",
+		"Insta-kill",
+		"Insta-kill and show popup",
+		"Insta-kill and show notification",
+		"Crash game",
+		"Crash game and show popup",
+		"Crash game and show notification"
 	];
 	
 	public static var keysArray:Array<FlxKey> = [ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT]; //Used for Vortex Editor
@@ -382,7 +398,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		infoBox.getTab('Information').menu.add(infoText);
 		add(infoBox);
 
-		mainBox = new PsychUIBox(mainBoxPosition.x, mainBoxPosition.y, 300, 280, ['Charting', 'Data', 'Events', 'Note', 'Section', 'Song']);
+		mainBox = new PsychUIBox(mainBoxPosition.x, mainBoxPosition.y, 300, 280, ['Charting', 'Data', 'Events', 'Extras', 'Note', 'Section', 'Song']);
 		mainBox.selectedName = 'Song';
 		mainBox.scrollFactor.set();
 		mainBox.cameras = [camUI];
@@ -431,6 +447,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		addChartingTab();
 		addDataTab();
 		addEventsTab();
+		addExtrasTab();
 		addNoteTab();
 		addSectionTab();
 		addSongTab();
@@ -2337,6 +2354,46 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		_lastSec = curSec;
 	}
 
+	var sevenValue:PsychUIInputText;
+	var sevenDropDown:PsychUIDropDownMenu;
+
+	function addExtrasTab()
+	{
+		var tab_group = mainBox.getTab('Extras').menu;
+		var objX = 10;
+		var objY = 30;
+
+		tab_group.add(new FlxText(objX, objY, 280, "Seven Event"));
+
+		objY += 20;
+
+		sevenDropDown = new PsychUIDropDownMenu(objX, objY, sevenEvents, function(id:Int, character:String)
+		{
+			var eventSelected:String = sevenEvents[id];
+			PlayState.SONG.sevenEvent = eventSelected;
+
+			if (eventSelected.length < 1)
+				Reflect.deleteField(PlayState.SONG, 'sevenEvent');
+		});
+
+		objY += 20;
+
+		tab_group.add(new FlxText(objX, objY, 280, "Seven Event Value"));
+		
+		objY += 20;
+
+		sevenValue = new PsychUIInputText(objX, objY, 120, '', 8);
+		sevenValue.onChange = function(old:String, cur:String)
+		{
+			PlayState.SONG.sevenEventValue = cur;
+			if(cur.trim().length < 1) Reflect.deleteField(PlayState.SONG, 'sevenEventValue');
+		}
+
+		tab_group.add(sevenValue);
+
+		tab_group.add(sevenDropDown);
+	}
+
 	var playbackSlider:PsychUISlider;
 
 	var mouseSnapCheckBox:PsychUICheckBox;
@@ -2351,6 +2408,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 	var playerMuteCheckBox:PsychUICheckBox;
 	var opponentVolumeStepper:PsychUINumericStepper;
 	var opponentMuteCheckBox:PsychUICheckBox;
+
 	function addChartingTab()
 	{
 		var tab_group = mainBox.getTab('Charting').menu;

@@ -43,6 +43,7 @@ import states.TitleState;
 	public var healthBarAlpha:Float = 1;
 	public var hitsoundVolume:Float = 0;
 	public var menuMusic:String = 'Vanilla';
+	public var menuMusicBPM:Int = 102;
 	public var pauseMusic:String = 'Tea Time';
 	public var checkForUpdates:Bool = true;
 	public var comboStacking:Bool = true;

@@ -130,6 +130,10 @@ class TitleState extends MusicBeatState
 
 		loadJsonData();
 		#if TITLE_SCREEN_EASTER_EGG easterEggData(); #end
+
+		if (ClientPrefs.data.menuMusic == "Custom")
+			musicBPM = ClientPrefs.data.menuMusicBPM;
+
 		Conductor.bpm = musicBPM;
 
 		logoBl = new FlxSprite(logoPosition.x, logoPosition.y);
@@ -529,7 +533,10 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					//FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+					if(ClientPrefs.data.menuMusic != 'Vanilla')
+						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
+					else
+						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")));
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
 					createCoolText(['Psych Engine by'], 40);
@@ -597,8 +604,11 @@ class TitleState extends MusicBeatState
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
 
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-						FlxG.sound.music.fadeIn(4, 0, 0.7);
+						if(ClientPrefs.data.menuMusic != 'Vanilla')
+							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
+						else
+							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")))
+							FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
 				}
 
@@ -619,7 +629,12 @@ class TitleState extends MusicBeatState
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						if(ClientPrefs.data.menuMusic != 'Vanilla')
+							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
+						else
+							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")))
+							FlxG.sound.music.fadeIn(4, 0, 0.7);
+						return;
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
 						#if ACHIEVEMENTS_ALLOWED
