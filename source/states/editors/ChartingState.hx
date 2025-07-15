@@ -88,19 +88,19 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		["Show Credits", "Value 1: Person to credit and icon, seperated by a comma\nValue 2: Time (in steps)"]
 	];
 
-	public static var sevenEvents:Array<String> =
+	public static var sevenEvents:Array<Array<String>> =
 	[
-		"",
-		"Block access to chart editor",
-		"Quit song",
-		"Restart song",
-		"Load song",
-		"Insta-kill",
-		"Insta-kill and show popup",
-		"Insta-kill and show notification",
-		"Crash game",
-		"Crash game and show popup",
-		"Crash game and show notification"
+		["", ""],
+		["Block access to chart editor", ""],
+		["Quit song", ""],
+		["Restart song", ""],
+		["Load song", "Use the input field to specify what song to load."],
+		["Insta-kill", ""],
+		["Insta-kill and show popup", "Use the input to specify title and message, seperated by commas"],
+		["Insta-kill and show notification", "Use the input to specify title and message, seperated by commas"],
+		["Crash game", ""],
+		["Crash game and show popup", "Use the input to specify title and message, seperated by commas"],
+		["Crash game and show notification", "Use the input to specify title and message, seperated by commas"]
 	];
 	
 	public static var keysArray:Array<FlxKey> = [ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT]; //Used for Vortex Editor
@@ -2356,25 +2356,41 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 	var sevenValue:PsychUIInputText;
 	var sevenDropDown:PsychUIDropDownMenu;
+	var sevenText:FlxText;
+
+	var sevenList:Array<String>;
 
 	function addExtrasTab()
 	{
+		sevenList = new Array();
+		for (event in sevenEvents) {
+			sevenList.push(event[0]);
+		} //This is used to create the array as an Array of Strings without the description, that's all.
+
 		var tab_group = mainBox.getTab('Extras').menu;
 		var objX = 10;
 		var objY = 30;
 
 		tab_group.add(new FlxText(objX, objY, 280, "Seven Event"));
 
-		objY += 20;
+		objY += 80;
 
-		sevenDropDown = new PsychUIDropDownMenu(objX, objY, sevenEvents, function(id:Int, character:String)
+		sevenText = new FlxText(objX, objY, 280, "");
+
+		objY -= 60;
+
+		sevenDropDown = new PsychUIDropDownMenu(objX, objY, sevenList, function(id:Int, character:String)
 		{
-			var eventSelected:String = sevenEvents[id];
+			var eventSelected:String = sevenEvents[id][0];
 			PlayState.SONG.sevenEvent = eventSelected;
+			
+			sevenText.text = sevenEvents[id][1];
 
 			if (eventSelected.length < 1)
 				Reflect.deleteField(PlayState.SONG, 'sevenEvent');
 		});
+
+		sevenDropDown.selectedLabel = PlayState.SONG.sevenEvent;
 
 		objY += 20;
 
@@ -2389,7 +2405,11 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			if(cur.trim().length < 1) Reflect.deleteField(PlayState.SONG, 'sevenEventValue');
 		}
 
+		sevenValue.text = PlayState.SONG.sevenEventValue;
+
 		tab_group.add(sevenValue);
+
+		tab_group.add(sevenText);
 
 		tab_group.add(sevenDropDown);
 	}
