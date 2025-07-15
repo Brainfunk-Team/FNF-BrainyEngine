@@ -8,7 +8,7 @@ As a continuation of Psych Engine, Brainy Engine is an Friday Night Funkin' Modd
 # Features
 
 ### Chart Editor Event
-You can change what action you want for your chart editor (aka custom event for pressing 7)
+You can change what action you want for an anticheat (aka custom event for pressing 7)
 ![Chart Editor Event Example](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/dbda54ca42e320020c245b6f4293d495ab5a8fee/.files/7EventTriggerShowcase.gif)
 
 ## Credits: Brainy Engine Team
