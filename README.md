@@ -1,4 +1,5 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Brainfunk-Team/FNF-BrainyEngine)
+![GitHub repo size](https://img.shields.io/github/repo-size/Brainfunk-Team/FNF-BrainyEngine)
 
 ---
 
