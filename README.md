@@ -5,6 +5,11 @@
 
 As a continuation of Psych Engine, Brainy Engine is an Friday Night Funkin' Modding Engine with a focus on making modpacks feel more like source mods, with easy custom UI and custom menus without source.
 
+# Features
+
+### Chart Editor Event
+You can change what action you want for your chart editor (aka custom event for pressing 7)
+![Chart Editor Event Example](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/dbda54ca42e320020c245b6f4293d495ab5a8fee/.files/7EventTriggerShowcase.gif)
 
 ## Credits: Brainy Engine Team
 * [Brainy0789](https://github.com/Brainy0789) - Owner of the project
@@ -30,5 +35,7 @@ As a continuation of Psych Engine, Brainy Engine is an Friday Night Funkin' Modd
 * CheemsAndFriends - Creator of FlxAnimate.
 * Ezhalt - Pessy's Easter Egg Jingle.
 * MaliciousBunny - Video for the Final Update.
+
+[View Old Psych Engine README](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/8f59cb8e3c23c3fc012e61c6e4b7d1e927318846/PSYCH-README.md)
 
 [View Old Psych Engine README](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/8f59cb8e3c23c3fc012e61c6e4b7d1e927318846/PSYCH-README.md)
