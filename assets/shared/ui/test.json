@@ -1,0 +1,15 @@
+{
+    "directory": "",
+    "healthBarImage": "healthBar",
+    "healthBarX": 0,
+    "healthBarY": 640.8,
+    "healthBarDownScrollY": 79.2,
+    "centerHealthBarX": true,
+    "centerHealthBarY": true,
+    "healthBarVisible": true,
+    "healthBarScrollFactorX": 1,
+    "healthBarScrollFactorY": 1,
+    "text": [
+        [0, 680.8,  79.2, true, false, 0, 0, "Penis {score}", "scoreTxt"]
+    ]
+}
