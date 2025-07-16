@@ -32,6 +32,7 @@ typedef SwagSong =
 	@:optional var splashSkin:String;
 	@:optional var sevenEvent:String;
 	@:optional var sevenEventValue:String;
+	@:optional var ui:String;
 }
 
 typedef SwagSection =

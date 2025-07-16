@@ -1299,7 +1299,7 @@ class StageEditorState extends MusicBeatState implements PsychUIEventHandler.Psy
 		stageDropDown.selectedLabel = lastLoadedStage;
 		directoryDropDown.selectedLabel = stageJson.directory;
 	}
-
+	
 	function checkUIOnObject()
 	{
 		if(UI_box.selectedName == 'Object')

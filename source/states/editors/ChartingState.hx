@@ -25,6 +25,7 @@ import states.editors.content.*;
 
 import backend.Song;
 import backend.StageData;
+import backend.UIData;
 import backend.Highscore;
 import backend.Difficulty;
 
@@ -488,6 +489,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		gameOverCharDropDown.list = gameOverCharacters;
 
 		stageDropDown.list = loadFileList('stages/', 'data/stageList.txt');
+		uiDropDown.list = loadFileList('ui/', 'data/uiList.txt');
 		onChartLoaded();
 
 		var tipText:FlxText = new FlxText(FlxG.width - 210, FlxG.height - 30, 200, 'Press F1 for Help', 20);
@@ -620,7 +622,8 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			player2: 'dad',
 			gfVersion: 'gf',
 			stage: 'stage',
-			format: 'psych_v1'
+			format: 'psych_v1',
+			ui: "default"
 		};
 		Song.chartPath = null;
 		loadChart(song);
@@ -659,6 +662,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		opponentDropDown.selectedLabel = PlayState.SONG.player2;
 		girlfriendDropDown.selectedLabel = PlayState.SONG.gfVersion;
 		stageDropDown.selectedLabel = PlayState.SONG.stage;
+		uiDropDown.selectedLabel = PlayState.SONG.ui;
 		StageData.loadDirectory(PlayState.SONG);
 
 		// DATA TAB
@@ -1804,6 +1808,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		PlayState.SONG = song;
 		StageData.loadDirectory(PlayState.SONG);
 		Conductor.bpm = PlayState.SONG.bpm;
+		UIData.loadDirectory(PlayState.SONG);
 	}
 
 	function loadMusic(?killAudio:Bool = false)
@@ -3253,6 +3258,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 	var audioOffsetStepper:PsychUINumericStepper;
 
 	var stageDropDown:PsychUIDropDownMenu;
+	var uiDropDown:PsychUIDropDownMenu;
 	var playerDropDown:PsychUIDropDownMenu;
 	var opponentDropDown:PsychUIDropDownMenu;
 	var girlfriendDropDown:PsychUIDropDownMenu;
@@ -3348,11 +3354,19 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			loadMusic();
 			trace('selected $character');
 		});
+
 		stageDropDown = new PsychUIDropDownMenu(objX + 140, objY, [''], function(id:Int, stage:String)
 		{
 			PlayState.SONG.stage = stage;
 			StageData.loadDirectory(PlayState.SONG);
 			trace('selected $stage');
+		});
+
+		uiDropDown = new PsychUIDropDownMenu(objX + 140, objY+40, [''], function(id:Int, ui:String)
+		{
+			PlayState.SONG.ui = ui;
+			UIData.loadDirectory(PlayState.SONG);
+			trace('selected $ui');
 		});
 		
 		opponentDropDown = new PsychUIDropDownMenu(objX, objY + 40, [''], function(id:Int, character:String)
@@ -3378,10 +3392,12 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		tab_group.add(audioOffsetStepper);
 
 		//dropdowns
+		tab_group.add(new FlxText(uiDropDown.x, uiDropDown.y - 15, 80, 'UI:'));
 		tab_group.add(new FlxText(stageDropDown.x, stageDropDown.y - 15, 80, 'Stage:'));
 		tab_group.add(new FlxText(playerDropDown.x, playerDropDown.y - 15, 80, 'Player:'));
 		tab_group.add(new FlxText(opponentDropDown.x, opponentDropDown.y - 15, 80, 'Opponent:'));
 		tab_group.add(new FlxText(girlfriendDropDown.x, girlfriendDropDown.y - 15, 80, 'Girlfriend:'));
+		tab_group.add(uiDropDown);
 		tab_group.add(stageDropDown);
 		tab_group.add(girlfriendDropDown);
 		tab_group.add(opponentDropDown);
@@ -4889,6 +4905,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		setSongPlaying(false);
 		updateChartData();
 		StageData.loadDirectory(PlayState.SONG);
+		UIData.loadDirectory(PlayState.SONG);
 		LoadingState.loadAndSwitchState(new PlayState());
 		ClientPrefs.toggleVolumeKeys(true);
 	}

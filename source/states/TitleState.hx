@@ -539,10 +539,10 @@ class TitleState extends MusicBeatState
 						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")));
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					createCoolText(['Psych Engine by'], 40);
+					createCoolText(['Brainy Engine by'], 40);
 				case 4:
-					addMoreText('Shadow Mario', 40);
-					addMoreText('Riveren', 40);
+					addMoreText('Brainy7890', 40);
+					addMoreText('OfficialGamer', 40);
 				case 5:
 					deleteCoolText();
 				case 6:
@@ -608,8 +608,9 @@ class TitleState extends MusicBeatState
 							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
 						else
 							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")))
-							FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
+
+						FlxG.sound.music.fadeOut(0, 0, 0);
 				}
 
 				transitioning = true;
@@ -631,9 +632,9 @@ class TitleState extends MusicBeatState
 					sound.onComplete = function() {
 						if(ClientPrefs.data.menuMusic != 'Vanilla')
 							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
+
 						else
 							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")))
-							FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;

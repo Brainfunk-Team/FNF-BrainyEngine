@@ -6,6 +6,7 @@ import backend.WeekData;
 import backend.Song;
 import backend.Rating;
 import backend.SystemStuff;
+import backend.UIData;
 
 import flixel.FlxBasic;
 import flixel.FlxObject;
@@ -223,6 +224,10 @@ class PlayState extends MusicBeatState
 	public static var deathCounter:Int = 0;
 
 	public var defaultCamZoom:Float = 1.05;
+
+	//UI Stuff!
+	public var uiData:UIFile;
+	public var uiText:Array<FlxText> = new Array(); //initialize this shit
 
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
@@ -527,11 +532,39 @@ class PlayState extends MusicBeatState
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 		moveCameraSection();
 
-		healthBar = new Bar(0, FlxG.height * (!ClientPrefs.data.downScroll ? 0.89 : 0.11), 'healthBar', function() return health, 0, 2);
-		healthBar.screenCenter(X);
+		uiData = UIData.getUIFile(SONG.ui);
+
+		var healthBarImage:String = uiData.healthBarImage;
+		var healthBarX:Float = uiData.healthBarX;
+		var healthBarY:Float;
+		var centerHealthBarX:Bool = uiData.centerHealthBarX;
+    	var centerHealthBarY:Bool = uiData.centerHealthBarY;
+		var healthBarVisible:Bool = uiData.healthBarVisible;
+		var healthBarScrollFactorX:Float = uiData.healthBarScrollFactorX;
+		var healthBarScrollFactorY:Float = uiData.healthBarScrollFactorY;
+		//trace("Scroll Factor X: " + healthBarScrollFactorX + " | Scroll Factor Y: " + healthBarScrollFactorY);
+
+		if (!ClientPrefs.data.downScroll)
+			healthBarY = uiData.healthBarY;
+		else
+			healthBarY = uiData.healthBarDownScrollY;
+
+		healthBar = new Bar(healthBarX, healthBarY, healthBarImage, function() return health, 0, 2);
+		
+		if (centerHealthBarX)
+			healthBar.screenCenter(X);
+		if (centerHealthBarY)
+			healthBar.screenCenter(Y);
+
 		healthBar.leftToRight = false;
-		healthBar.scrollFactor.set();
+		healthBar.scrollFactor.set(healthBarScrollFactorX, healthBarScrollFactorY);
+
+
 		healthBar.visible = !ClientPrefs.data.hideHud;
+
+		if (!healthBar.visible)
+			healthBar.visible = !healthBarVisible;
+
 		healthBar.alpha = ClientPrefs.data.healthBarAlpha;
 		reloadHealthBarColors();
 		uiGroup.add(healthBar);
@@ -553,7 +586,26 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.data.hideHud;
-		uiGroup.add(scoreTxt);
+
+		var i:Int = 0;
+
+		uiText = new Array(); //reset it! reset it!
+
+		for (textUI in uiData.text) {
+			uiText.push(new FlxText(textUI[0], textUI[1], FlxG.width, "", 20));
+			uiText[i].scrollFactor.set();
+			uiText[i].setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			uiText[i].scrollFactor.set();
+			uiText[i].borderSize = 1.25;
+			uiText[i].x = textUI[0];
+			if (ClientPrefs.data.downScroll)
+				uiText[i].y = textUI[2];
+			else
+				uiText[i].y = textUI[1];
+			uiText[i].visible = !ClientPrefs.data.hideHud;
+			uiGroup.add(uiText[i]);
+			i += 1;
+		}
 
 		botplayTxt = new FlxText(400, healthBar.y - 90, FlxG.width - 800, Language.getPhrase("Botplay").toUpperCase(), 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1689,6 +1741,18 @@ class PlayState extends MusicBeatState
 		callOnScripts('onUpdate', [elapsed]);
 
 		super.update(elapsed);
+
+		var i:Int = 0;
+
+		var uiShit:UIData = new UIData();
+
+		var tempData:UIFile = UIData.getUIFile(SONG.ui);
+
+		for (text in uiText) {
+			text.text = uiShit.formatText(Std.string(tempData.text[i][7]));
+			i += 1;
+		}
+		
 
 		setOnScripts('curDecStep', curDecStep);
 		setOnScripts('curDecBeat', curDecBeat);

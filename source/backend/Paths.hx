@@ -153,7 +153,7 @@ class Paths
 		if(modsAllowed)
 		{
 			var customFile:String = file;
-			if (parentfolder != null) customFile = '$parentfolder/$file';
+			if (parentfolder != null) customFile = parentfolder + "/" + file;
 
 			var modded:String = modFolders(customFile);
 			if(FileSystem.exists(modded)) return modded;
@@ -282,7 +282,17 @@ class Paths
 
 	inline static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
-		var path:String = getPath(key, TEXT, !ignoreMods);
+
+		var temp:Bool = ignoreMods;
+
+		#if MODS_ALLOWED
+		if (!ignoreMods)
+		{
+			temp = true;
+		}
+		#end
+
+		var path:String = getPath(key, TEXT, !temp);
 		#if sys
 		return (FileSystem.exists(path)) ? File.getContent(path) : null;
 		#else
