@@ -54,11 +54,11 @@ class UIData {
             "healthBarDownScrollY": 79.2,
             "centerHealthBarX": true,
             "centerHealthBarY": false,
+            "healthBarVisible": true,
             "healthBarScrollFactorX": 0,
             "healthBarScrollFactorY": 0,
-            "healthBarVisible": true,
             "text": [
-                [0, 680.8, 79.2, true, false, 0, 0, "Score: {score} | Misses: {misses} | Rating: {rating}% - {ratingFC}", "scoreTxt"]
+                [0, 680.8, 119.2, true, false, 0, 0, "Score: {score} | Misses: {misses} | Rating: {rating}% - {ratingFC}", "scoreTxt"]
             ]
         };
     }
