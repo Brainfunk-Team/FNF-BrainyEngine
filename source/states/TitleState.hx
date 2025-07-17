@@ -1,7 +1,6 @@
 package states;
 
 import backend.WeekData;
-import backend.Paths;
 
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.frames.FlxAtlasFrames;
@@ -71,12 +70,6 @@ class TitleState extends MusicBeatState
 		super.create();
 		Paths.clearUnusedMemory();
 
-		if(!initialized)
-		{
-			ClientPrefs.loadPrefs();
-			Language.reloadPhrases();
-		}
-
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		if(!initialized)
@@ -122,18 +115,10 @@ class TitleState extends MusicBeatState
 	{
 		persistentUpdate = true;
 		if (!initialized && FlxG.sound.music == null)
-			if(ClientPrefs.data.menuMusic != 'Vanilla')
-				FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
-			else
-				FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")));
-
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 
 		loadJsonData();
 		#if TITLE_SCREEN_EASTER_EGG easterEggData(); #end
-
-		if (ClientPrefs.data.menuMusic == "Custom")
-			musicBPM = ClientPrefs.data.menuMusicBPM;
-
 		Conductor.bpm = musicBPM;
 
 		logoBl = new FlxSprite(logoPosition.x, logoPosition.y);
@@ -533,16 +518,13 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					//FlxG.sound.music.stop();
-					if(ClientPrefs.data.menuMusic != 'Vanilla')
-						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
-					else
-						FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")));
+					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					createCoolText(['Brainy Engine by'], 40);
+					createCoolText(['Psych Engine by'], 40);
 				case 4:
-					addMoreText('Brainy7890', 40);
-					addMoreText('OfficialGamer', 40);
+					addMoreText('Shadow Mario', 40);
+					addMoreText('Riveren', 40);
 				case 5:
 					deleteCoolText();
 				case 6:
@@ -604,13 +586,9 @@ class TitleState extends MusicBeatState
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
 
-						if(ClientPrefs.data.menuMusic != 'Vanilla')
-							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
-						else
-							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")))
+						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
-
-						FlxG.sound.music.fadeOut(0, 0, 0);
 				}
 
 				transitioning = true;
@@ -630,12 +608,7 @@ class TitleState extends MusicBeatState
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
-						if(ClientPrefs.data.menuMusic != 'Vanilla')
-							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu-" + ClientPrefs.data.menuMusic)));
-
-						else
-							FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath("freakyMenu")))
-						return;
+						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
 						#if ACHIEVEMENTS_ALLOWED
