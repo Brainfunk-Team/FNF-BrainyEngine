@@ -129,24 +129,6 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeFPSCounter;
 		#end
-
-		var option:Option = new Option('Menu Music:',
-			"What song do you prefer for the Menu?",
-			'menuMusic',
-			STRING,
-			['None', 'Vanilla', 'Custom']);
-		addOption(option);
-		option.onChange = onChangeMenuMusic;
-
-		var option:Option = new Option('Custom Menu Music BPM',
-			'The tempo for the custom menu music',
-			'menuMusicBPM',
-			INT);
-		option.displayFormat = '%v BPM';
-		option.scrollSpeed = 1;
-		option.minValue = 1;
-		option.maxValue = 999;
-		addOption(option);
 		
 		var option:Option = new Option('Pause Music:',
 			"What song do you prefer for the Pause Screen?",

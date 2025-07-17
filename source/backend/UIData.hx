@@ -44,21 +44,39 @@ class UIData {
         instance = this;
     }
 
-    public static function dummy():UIFile
+    public static function dummy(?withScoreTxt = true):UIFile
     {
-        return {
-            "directory": "",
-            "healthBarImage": "healthBar",
-            "healthBarX": 0,
-            "healthBarY": 640.8,
-            "healthBarDownScrollY": 79.2,
-            "centerHealthBarX": true,
-            "centerHealthBarY": false,
-            "healthBarVisible": true,
-            "healthBarScrollFactorX": 0,
-            "healthBarScrollFactorY": 0,
-            "text": [
-                [0, 680.8, 119.2, true, false, 0, 0, "Score: {score} | Misses: {misses} | Rating: {rating}% - {ratingFC}", "scoreTxt"]
+        if (withScoreTxt)
+        {
+            return {
+                "directory": "",
+                "healthBarImage": "healthBar",
+                "healthBarX": 0,
+                "healthBarY": 640.8,
+                "healthBarDownScrollY": 79.2,
+                "centerHealthBarX": true,
+                "centerHealthBarY": false,
+                "healthBarVisible": true,
+                "healthBarScrollFactorX": 0,
+                "healthBarScrollFactorY": 0,
+                "text": [
+                    [0, 680.8, 119.2, true, false, 0, 0, "Score: {score} | Misses: {misses} | Rating: {rating}% - {ratingFC}", "scoreTxt"]
+            ]
+        };
+        }
+        else
+            return {
+                "directory": "",
+                "healthBarImage": "healthBar",
+                "healthBarX": 0,
+                "healthBarY": 640.8,
+                "healthBarDownScrollY": 79.2,
+                "centerHealthBarX": true,
+                "centerHealthBarY": false,
+                "healthBarVisible": true,
+                "healthBarScrollFactorX": 0,
+                "healthBarScrollFactorY": 0,
+                "text": [
             ]
         };
     }
@@ -140,5 +158,9 @@ class UIData {
         }
 
         return string;
+    }
+
+    public static function saveUIFile(uiFile:UIFile):String {
+        return Json.stringify(uiFile, null, "    ");
     }
 }

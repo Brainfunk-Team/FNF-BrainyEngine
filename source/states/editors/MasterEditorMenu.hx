@@ -122,6 +122,11 @@ class MasterEditorMenu extends MusicBeatState
 					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
 				case 'Note Splash Editor':
 					MusicBeatState.switchState(new NoteSplashEditorState());
+				case 'UI Editor':
+					//MusicBeatState.switchState(new UIEditorState());
+					var comingSoonText:FlxText = new FlxText(0, 0, FlxG.width, "Coming soon!", 45);
+					comingSoonText.setFormat(Paths.font("vcr.ttf"), 70, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+					add(comingSoonText);
 			}
 			FlxG.sound.music.volume = 0;
 			FreeplayState.destroyFreeplayVocals();

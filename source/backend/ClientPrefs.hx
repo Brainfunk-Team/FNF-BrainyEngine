@@ -47,6 +47,9 @@ import states.TitleState;
 	public var pauseMusic:String = 'Tea Time';
 	public var checkForUpdates:Bool = true;
 	public var comboStacking:Bool = true;
+
+	public var skipSplash:Bool = false;
+
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -207,6 +210,9 @@ class ClientPrefs {
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
 			for (name => value in savedMap)
 				data.gameplaySettings.set(name, value);
+		}
+		if (FlxG.save.data.skipSplash != null) {
+			data.skipSplash = FlxG.save.data.skipSplash;
 		}
 		
 		// flixel automatically saves your volume!
