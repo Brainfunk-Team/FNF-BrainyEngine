@@ -21,6 +21,12 @@ import openfl.utils.Assets as OpenFlAssets;
 import openfl.events.KeyboardEvent;
 import haxe.Json;
 
+import sys.io.File;
+import sys.io.FileInput;
+import haxe.io.Input;
+import Std;
+import Math;
+
 import cutscenes.DialogueBoxPsych;
 
 import states.StoryMenuState;
@@ -607,11 +613,15 @@ class PlayState extends MusicBeatState
 			i += 1;
 		}
 
-		botplayTxt = new FlxText(400, healthBar.y - 90, FlxG.width - 800, Language.getPhrase("Botplay").toUpperCase(), 32);
+		botplayTxt = new FlxText(400, healthBar.y - 90, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
+
+		if (ClientPrefs.data.botplayTxt)
+			setBotplayTxt();
+
 		uiGroup.add(botplayTxt);
 		if(ClientPrefs.data.downScroll)
 			botplayTxt.y = healthBar.y + 70;
@@ -693,6 +703,21 @@ class PlayState extends MusicBeatState
 		cachePopUpScore();
 
 		if(eventNotes.length < 1) checkEventNote();
+	}
+
+	function setBotplayTxt()
+	{
+		var lines:Array<String> = File.getContent(Paths.getSharedPath() + "data/botplayText.txt").split("\n");
+
+        lines = lines.filter(line -> line.trim() != "");
+
+        if (lines.length > 0) {
+            var index = Std.random(lines.length);
+            var randomLine = lines[index];
+			botplayTxt.text = randomLine;
+        } else {
+            botplayTxt.text = "BOTPLAY";
+        }
 	}
 
 	function set_songSpeed(value:Float):Float

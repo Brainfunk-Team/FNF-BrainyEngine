@@ -13,6 +13,12 @@ class MiscSettingsSubState extends BaseOptionsMenu
 			BOOL);
 		addOption(option);
 
+		var option:Option = new Option('Get Bullied by Botplay Text',
+			'If checked, a random text will get displayed when you\'re on Botplay.',
+			'botplayTxt',
+			BOOL);
+		addOption(option);
+
 		super();
 	}
 }

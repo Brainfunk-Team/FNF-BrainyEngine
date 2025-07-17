@@ -49,6 +49,7 @@ import states.TitleState;
 	public var comboStacking:Bool = true;
 
 	public var skipSplash:Bool = false;
+	public var botplayTxt:Bool = false;
 
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -213,6 +214,10 @@ class ClientPrefs {
 		}
 		if (FlxG.save.data.skipSplash != null) {
 			data.skipSplash = FlxG.save.data.skipSplash;
+		}
+
+		if (FlxG.save.data.botplayTxt != null) {
+			data.botplayTxt = FlxG.save.data.botplayTxt;
 		}
 		
 		// flixel automatically saves your volume!
