@@ -1,7 +1,7 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Brainfunk-Team/FNF-BrainyEngine)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Brainfunk-Team/FNF-BrainyEngine)
 
-![Brainy Engine](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/dbda54ca42e320020c245b6f4293d495ab5a8fee/art/brainyenginelogo.png)
+![Brainy Engine]([https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/art/brainyengine-logo.png)
 
 ---
 
