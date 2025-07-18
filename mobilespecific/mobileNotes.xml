@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="mobileNotes.png">
+	<SubTexture name="left press0000" x="0" y="0" width="324" height="719" frameX="2" frameY="0" frameWidth="320" frameHeight="720"/>
+	<SubTexture name="left idle0000" x="638" y="719" width="319" height="709" frameX="0" frameY="-5" frameWidth="320" frameHeight="720"/>
+	<SubTexture name="left press0001" x="1296" y="0" width="319" height="709" frameX="0" frameY="-5" frameWidth="320" frameHeight="720"/>
+	<SubTexture name="left idle0001" x="972" y="0" width="324" height="719" frameX="2" frameY="0" frameWidth="320" frameHeight="720"/>
+	<SubTexture name="right idle0000" x="0" y="719" width="319" height="709" frameX="0" frameY="-5" frameWidth="320" frameHeight="720"/>
+	<SubTexture name="right press0000" x="324" y="0" width="324" height="719" frameX="2" frameY="0" frameWidth="320" frameHeight="720"/>
+	<SubTexture name="up idle0000" x="319" y="719" width="319" height="709" frameX="0" frameY="-5" frameWidth="320" frameHeight="720"/>
+	<SubTexture name="up press0000" x="648" y="0" width="324" height="719" frameX="2" frameY="0" frameWidth="320" frameHeight="720"/>
+</TextureAtlas>

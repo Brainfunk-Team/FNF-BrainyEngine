@@ -101,6 +101,8 @@
 	</section>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 
+	<define name="TOUCH_CONTROLS" if="mobile"/>
+
 	<!-- OpenAL config -->
 	<section if="desktop">
 		<assets path="alsoft.txt" rename="plugins/alsoft.ini" type="text" if="windows"/>

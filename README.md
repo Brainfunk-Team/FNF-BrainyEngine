@@ -3,6 +3,10 @@
 
 ---
 
+## Installation:
+
+If you want to play the game normal, just install it via the releases section on this Github, if you want to build it from source, refer to [the Build Instructions](/docs/BUILDING.md)
+
 As a continuation of Psych Engine, Brainy Engine is an Friday Night Funkin' Modding Engine with a focus on making modpacks feel more like source mods, with easy custom UI and custom menus without source.
 
 # Features
@@ -20,30 +24,17 @@ Change UI elements for mod packs using Json files
 
 ![](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/fb0be8c22862a3293dc6c5ce753c154cd5fd2e11/.files/customui.png)
 
+---
 ## Credits: Brainy Engine Team
 * [Brainy0789](https://github.com/Brainy0789) - Owner of the project
 * [OfficialGamer](https://github.com/Official3Gamer) - Developer
 
----
+## Special Thanks
+* Starless - Android playtester
+
 ## Credits: Psych Engine Team
 * Shadow Mario - Main Programmer and Head of Psych Engine.
 * Riveren - Main Artist/Animator of Psych Engine.
-
-### Special Thanks
-* bbpanzu - Ex-Team Member (Programmer).
-* crowplexus - HScript Iris, Input System v3, and Other PRs.
-* Kamizeta - Creator of Pessy, Psych Engine's mascot.
-* MaxNeton - Loading Screen Easter Egg Artist/Animator.
-* Keoiki - Note Splash Animations and Latin Alphabet.
-* SqirraRNG - Crash Handler and Base code for Chart Editor's Waveform.
-* EliteMasterEric - Runtime Shaders support and Other PRs.
-* MAJigsaw77 - .MP4 Video Loader Library (hxvlc).
-* iFlicky - Composer of Psync, Tea Time and some sound effects.
-* KadeDev - Fixed some issues on Chart Editor and Other PRs.
-* superpowers04 - LUA JIT Fork.
-* CheemsAndFriends - Creator of FlxAnimate.
-* Ezhalt - Pessy's Easter Egg Jingle.
-* MaliciousBunny - Video for the Final Update.
 
 [View Old Psych Engine README](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/8f59cb8e3c23c3fc012e61c6e4b7d1e927318846/PSYCH-README.md)
 
