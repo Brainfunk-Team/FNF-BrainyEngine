@@ -1,7 +1,10 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Brainfunk-Team/FNF-BrainyEngine)
 ![GitHub repo size](https://img.shields.io/github/repo-size/Brainfunk-Team/FNF-BrainyEngine)
 
-![Brainy Engine]([https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/art/brainyengine-logo.png)
+<h1 style="font-size: 60;">Friday Night Funkin': Brainy Engine</h1>
+<center>
+<img width=800 alt="Brainy Engine Logo" style="justify-content: center" src="https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/art/brainyengine-logo.png?raw=true">
+</center>
 
 ---
 
