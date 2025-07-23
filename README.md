@@ -2,9 +2,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Brainfunk-Team/FNF-BrainyEngine)
 
 <h1 style="font-size: 60;">Friday Night Funkin': Brainy Engine</h1>
-<center>
 <img width=800 alt="Brainy Engine Logo" style="justify-content: center" src="https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/art/brainyengine-logo.png?raw=true">
-</center>
 
 ---
 
@@ -28,6 +26,23 @@ You can change what action you want for an anticheat (aka custom event for press
 Change UI elements for mod packs using Json files
 
 ![](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/fb0be8c22862a3293dc6c5ce753c154cd5fd2e11/.files/customui.png)
+
+While you can't change much formatting in the JSON files it's easy to do in HScript.
+
+```` haxe
+import states.PlayState;
+
+//Example of how you can edit text format (in HScript)
+function onCreatePost() {
+    var i = 0;
+
+    if 
+    for (text in PlayState.instance.uiText) {
+        PlayState.instance.uiText[i].setFormat("vcr.ttf", 100);
+        i += 1;
+    } 
+}
+````
 
 ---
 ## Credits: Brainy Engine Team
