@@ -18,7 +18,10 @@ class MasterEditorMenu extends MusicBeatState
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
 		'Note Splash Editor',
-		'UI Editor'
+		'UI Editor' 
+		#if LUA_ALLOWED ,
+		'Modchart Editor'
+		#end
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -127,6 +130,10 @@ class MasterEditorMenu extends MusicBeatState
 					var comingSoonText:FlxText = new FlxText(0, 0, FlxG.width, "Coming soon!", 45);
 					comingSoonText.setFormat(Paths.font("vcr.ttf"), 70, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 					add(comingSoonText);
+				case "Modchart Editor":
+					#if LUA_ALLOWED //Wrapping this in a compilation conditional just in case.
+					LoadingState.loadAndSwitchState(new ModchartEditorState()); 
+					#end
 			}
 			FlxG.sound.music.volume = 0;
 			FreeplayState.destroyFreeplayVocals();
