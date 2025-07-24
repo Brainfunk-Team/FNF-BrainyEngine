@@ -227,7 +227,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
 
         var i:Int = 0;
         for (field in strumLineData.x) {
-            if (field != 0)
+            if (field != 0 || !Math.isNaN(field))
             {
                 stepFile += "\n" + indent(2) + "noteTweenX('noteTweenX" + i + "', " + i + ", " + "note" + i + "X + " + field + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
             }
@@ -237,7 +237,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         i = 0;
 
         for (field in strumLineData.y) {
-            if (field != 0)
+            if (field != 0 || !Math.isNaN(field))
             {
                 stepFile += "\n" + indent(2) + "noteTweenY('noteTweenY" + i + "', " + i + ", " + "note" + i + "Y + " + field + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
             }
@@ -247,7 +247,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         i = 0;
 
         for (field in strumLineData.alpha) {
-            if (field != 1)
+            if (field != 1 || !Math.isNaN(field))
             {
                 stepFile += "\n" + indent(2) + "noteTweenAlpha('noteTweenAlpha" + i + "', " + i + ", " + field + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
             }
