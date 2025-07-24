@@ -86,6 +86,7 @@ class WeekData {
 		var originalLength:Int = directories.length;
 		#end
 
+		//bro what is this variable name :sobbing emoji:
 		var sexList:Array<String> = CoolUtil.coolTextFile(Paths.getSharedPath('weeks/weekList.txt'));
 		for (i in 0...sexList.length) {
 			for (j in 0...directories.length) {

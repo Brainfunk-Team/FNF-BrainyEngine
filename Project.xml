@@ -65,7 +65,7 @@
 	<define name="CRASH_HANDLER" if="desktop release" />
 
 	<!-- Mobile stuff blah blah -->
-	 <define name="TOUCH_CONTROLS" if="mobile"/>
+	 <define name="TOUCH_CONTROLS" if="mobile"/> <!--May be finished still have no idea if i'll add mobile support...-->
 
 	<!-- Assets -->
 	<assets path="assets/fonts" />
