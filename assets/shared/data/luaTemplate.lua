@@ -11,4 +11,6 @@ local note5X, note5Y, note5Alpha
 local note6X, note6Y, note6Alpha
 local note7X, note7Y, note7Alpha
 
+local easeTime
+
 function onCreatePost()

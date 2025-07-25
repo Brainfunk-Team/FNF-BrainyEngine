@@ -34,11 +34,13 @@ typedef ModChartData = {
     var everySteps:Int;
     var reverseEveryOther:Bool;
     var time:Float;
+    var beatBasedEase:Bool;
 }
 
 //Code entirely by Brainy7890 :o
 //Feel free to drop this state into your own mod, but don't delete these comments.
 //Or, if you want, add me to a special thanks in a credits section of your mod. You can find my credit icon in this repository. (assets/shared/images/credits/brainy7890.png)
+//Of course, if you're just forking Brainy Engine or using the engine for your mod, do what you want.
 
 class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.PsychUIEvent {
     private var luaFile:String = File.getContent(Paths.getSharedPath() + "data/luaTemplate.lua");
@@ -62,6 +64,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
     private var strumLineScaleInputs:Array<PsychUIInputText>;
     private var strumLineAlphaInputs:Array<PsychUIInputText>;
     private var timeInput:PsychUINumericStepper;
+    private var beatBasedEase:PsychUICheckBox;
 
     private var hideNotes:Array<Bool>;
 
@@ -81,7 +84,8 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
             type: "linear",
             everySteps: 4,
             reverseEveryOther: false,
-            time: 0.0
+            time: 0.0,
+            beatBasedEase: false
         };
 
     function formatType(type:String):String
@@ -126,8 +130,9 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         });
         reverseEveryOtherCheckbox = new PsychUICheckBox(30, 145, "Reverse every other 4 steps");
 
-        var timeLabel:FlxText = new FlxText(30, 145, 0, "Every X Steps");
-        timeInput = new PsychUINumericStepper(timeLabel.x + timeLabel.width + 10, 145, 0.05, 0, 0, 999, 2);
+        var timeLabel:FlxText = new FlxText(30, 170, 0, "Easing Time");
+        timeInput = new PsychUINumericStepper(30, timeLabel.y + timeLabel.height + 10, 0.05, 0, 0, 999, 2);
+        beatBasedEase = new PsychUICheckBox(30, 230, "Ease based on BPM");
 
         var objX:Int = 230;
         var objY:Int = 15;
@@ -168,6 +173,8 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         mainBox.getTab("Properties").menu.add(typeDropDown);
         mainBox.getTab("Properties").menu.add(reverseEveryOtherCheckbox);
         mainBox.getTab("Properties").menu.add(timeInput);
+        mainBox.getTab("Properties").menu.add(timeLabel);
+        mainBox.getTab("Properties").menu.add(beatBasedEase);
         add(mainBox);
     }
 
@@ -208,6 +215,12 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
             setupFile += "\n" + indent(1) + "note" + i + "Y = getPropertyFromGroup('strumLineNotes', " + i + ", 'y')";
             setupFile += "\n" + indent(1) + "note" + i + "Alpha = getPropertyFromGroup('strumLineNotes', " + i + ", 'alpha')";
         }
+
+        if (modChartData.beatBasedEase)
+            setupFile += "\n" + indent(1) + "easeTime = ((60/curBpm)/4) * " + modChartData.everySteps;
+        else
+            setupFile += "\n" + indent(1) + "easeTime = " + modChartData.time;
+
         setupFile += "\nend";
         finalFile += setupFile;
     }
@@ -229,7 +242,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         for (field in strumLineData.x) {
             if (field != 0 || !Math.isNaN(field))
             {
-                stepFile += "\n" + indent(2) + "noteTweenX('noteTweenX" + i + "', " + i + ", " + "note" + i + "X + " + field + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
+                stepFile += "\n" + indent(2) + "noteTweenX('noteTweenX" + i + "', " + i + ", " + "note" + i + "X + " + field + ", easeTime, " + "'" + modChartData.type + "')";
             }
             i += 1;
         }
@@ -239,7 +252,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         for (field in strumLineData.y) {
             if (field != 0 || !Math.isNaN(field))
             {
-                stepFile += "\n" + indent(2) + "noteTweenY('noteTweenY" + i + "', " + i + ", " + "note" + i + "Y + " + field + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
+                stepFile += "\n" + indent(2) + "noteTweenY('noteTweenY" + i + "', " + i + ", " + "note" + i + "Y + " + field + ", easeTime, " + "'" + modChartData.type + "')";
             }
             i += 1;
         }
@@ -249,7 +262,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         for (field in strumLineData.alpha) {
             if (field != 1 || !Math.isNaN(field))
             {
-                stepFile += "\n" + indent(2) + "noteTweenAlpha('noteTweenAlpha" + i + "', " + i + ", " + field + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
+                stepFile += "\n" + indent(2) + "noteTweenAlpha('noteTweenAlpha" + i + "', " + i + ", " + field + ", easeTime, " + "'" + modChartData.type + "')";
             }
             i += 1;
         }
@@ -264,7 +277,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
             for (field in strumLineData.x) {
                 if (field != 0)
                 {
-                    stepFile += "\n" + indent(2) + "noteTweenX('noteTweenX" + i + "', " + i + ", " + "note" + i + "X" + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
+                    stepFile += "\n" + indent(2) + "noteTweenX('noteTweenX" + i + "', " + i + ", " + "note" + i + "X" + ", easeTime, " + "'" + modChartData.type + "')";
                 }
                 i += 1;
             }
@@ -274,7 +287,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
             for (field in strumLineData.y) {
                 if (field != 0)
                 {
-                    stepFile += "\n" + indent(2) + "noteTweenY('noteTweenY" + i + "', " + i + ", " + "note" + i + "Y" + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
+                    stepFile += "\n" + indent(2) + "noteTweenY('noteTweenY" + i + "', " + i + ", " + "note" + i + "Y" + ", easeTime, " + "'" + modChartData.type + "')";
                 }
                 i += 1;
             }
@@ -284,7 +297,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
             for (field in strumLineData.alpha) {
                 if (field != 1)
                 {
-                    stepFile += "\n" + indent(2) + "noteTweenAlpha('noteTweenAlpha" + i + "', " + i + ", " + field + ", " + modChartData.time + ", " + "'" + modChartData.type + "')";
+                    stepFile += "\n" + indent(2) + "noteTweenAlpha('noteTweenAlpha" + i + "', " + i + ", " + field + ", easeTime, " + "'" + modChartData.type + "')";
                 }
                 i += 1;
             }
@@ -344,6 +357,10 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
 
                 if (sender == reverseEveryOtherCheckbox) {
                     modChartData.reverseEveryOther = !modChartData.reverseEveryOther;
+                }
+
+                if (sender == beatBasedEase) {
+                    modChartData.beatBasedEase = !modChartData.beatBasedEase;
                 }
             case PsychUINumericStepper.CHANGE_EVENT:
                 if (sender == everySteps)
