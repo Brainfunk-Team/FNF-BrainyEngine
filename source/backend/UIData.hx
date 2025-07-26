@@ -11,6 +11,8 @@ import states.PlayState;
 
 //This code is heavily based on StageData.hx.
 
+//THE TRACES ARE NOW COMMENTED...THEY WON'T PLAGUE THE TERMINAL ANY LONGER!
+
 typedef UITextEntry = {
     var x:Float;
     var y:Float;
@@ -86,7 +88,7 @@ class UIData {
     public static function loadDirectory(SONG:SwagSong) {
         var ui:String = '';
 
-        trace("SONG.ui = " + SONG.ui);
+        //trace("SONG.ui = " + SONG.ui);
 
         if(SONG.ui != null)
             ui = SONG.ui;
@@ -102,7 +104,7 @@ class UIData {
 
         var uiFile:UIFile = getUIFile(ui);
         forceNextDirectory = (uiFile != null) ? uiFile.directory : '';
-        trace("[UIData] Loaded UI directory: " + forceNextDirectory);
+        //trace("[UIData] Loaded UI directory: " + forceNextDirectory);
     }
 
     public static function getUIFile(ui:String):UIFile {
@@ -115,7 +117,7 @@ class UIData {
             path = Paths.getPath('ui/' + ui + '.json', TEXT, null, false);
             #end
             
-            trace("[UIData] Trying to load UI JSON from path: " + path);
+            //trace("[UIData] Trying to load UI JSON from path: " + path);
 
             #if MODS_ALLOWED
             if(FileSystem.exists(path)) {
@@ -128,9 +130,9 @@ class UIData {
             #end
         }
         catch(e:Dynamic) {
-            trace("[UIData] Error loading UI JSON: " + e);
+            //trace("[UIData] Error loading UI JSON: " + e);
         }
-        trace("[UIData] Falling back to dummy UI.");
+        //trace("[UIData] Falling back to dummy UI.");
         return dummy();
     }
 

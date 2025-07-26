@@ -46,7 +46,8 @@ class Note extends FlxSprite
 		'Hey!',
 		'Hurt Note',
 		'GF Sing',
-		'No Animation'
+		'No Animation',
+		'Cheer',
 	];
 
 	public var extraData:Map<String, Dynamic> = new Map<String, Dynamic>();

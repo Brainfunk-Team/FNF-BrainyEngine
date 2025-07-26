@@ -2045,6 +2045,8 @@ class PlayState extends MusicBeatState
 	{
 		var seperate = SONG.sevenEventValue.split(",");
 
+		chartingMode = false;
+
 		switch (SONG.sevenEvent) {
 			case "Block access to chart editor":
 				trace("Chart Editor access blocked via Seven Event!");
@@ -2224,7 +2226,7 @@ class PlayState extends MusicBeatState
 				if(flValue2 == null || flValue2 <= 0) flValue2 = 0.6;
 
 				if(value != 0) {
-					if(dad.curCharacter.startsWith('gf')) { //Tutorial GF is actually Dad! The GF is an imposter!! ding ding ding ding ding ding ding, dindinding, end my suffering
+					if(dad.curCharacter.startsWith('gf')) { //Tutorial GF is actually Dad! The GF is an imposter!! ding ding ding ding ding ding ding, dindinding, end my suffering //reading comments from the devs before me is pretty funny -brainy
 						dad.playAnim('cheer', true);
 						dad.specialAnim = true;
 						dad.heyTimer = flValue2;
@@ -3135,6 +3137,21 @@ class PlayState extends MusicBeatState
 			dad.specialAnim = true;
 			dad.heyTimer = 0.6;
 		}
+
+		var playCheer:Bool = false;
+		if(note.noteType == 'Cheer') //these notes are basically JUST for spookeez lol. knda cool though lol
+		{
+			if (dad.hasAnimation('cheer'))
+			{
+				dad.playAnim('cheer', true);
+				playCheer = true;
+			}
+			else if (dad.hasAnimation('hey'))
+			{
+				dad.playAnim('hey', true);
+				playCheer = true;
+			}
+		}
 		else if(!note.noAnimation)
 		{
 			var char:Character = dad;
@@ -3172,7 +3189,7 @@ class PlayState extends MusicBeatState
 		if(note.wasGoodHit) return;
 		if(cpuControlled && note.ignoreNote) return;
 
-		var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
+		var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD //(BRAINY CAN'T GET IT OUT OF HIS HEAD AHAHHHAHHHAHHHAHHHA)
 		var leData:Int = Math.round(Math.abs(note.noteData));
 		var leType:String = note.noteType;
 
@@ -3220,6 +3237,22 @@ class PlayState extends MusicBeatState
 							char.playAnim(animCheck, true);
 							char.specialAnim = true;
 							char.heyTimer = 0.6;
+						}
+					}
+
+					var playCheer:Bool = false;
+
+					if(note.noteType == 'Cheer') //these notes are basically JUST for spookeez lol. kinda cool though lol
+					{
+						if (char.hasAnimation('cheer'))
+						{
+							char.playAnim('cheer', true);
+							playCheer = true;
+						}
+						else if (char.hasAnimation('hey'))
+						{
+							dad.playAnim('hey', true);
+							playCheer = true;
 						}
 					}
 				}
