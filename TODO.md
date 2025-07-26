@@ -2,10 +2,11 @@
 
 - [ ] Add softcoded UI system
 - [ ] Add UI Editor
-- [ ] Allow for Lua files to be run in any state*
+- [ ] Allow for HScript files to be run in any state (putting a pin in this for now)
 - [x] Anticheat System
 - [ ] Add Menu Editor
-- [ ] Finish Building v0.1.0
 - [ ] Fix custom menu music feature
+- [ ] Add Erect/Nightmare difficulties to base game
+- [ ] Add character select screen + Pico (or any other character, if a mod needs it) Mixes
 
-> Last Updated 7/17/2025
+> Last Updated 7/26/2025

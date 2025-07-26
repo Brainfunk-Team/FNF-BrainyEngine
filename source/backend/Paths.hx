@@ -34,6 +34,14 @@ class Paths
 			dumpExclusions.push(key);
 	}
 
+	public static function join(paths:Array<String>):String {
+		return paths
+			.filter(p -> p != null && p != "")
+			.map(p -> p.replace("\\", "/")) // Normalize all to forward slashes
+			.join("/")
+			.replace("//", "/"); // Remove any accidental double slashes
+	}
+
 	public static var dumpExclusions:Array<String> = ['assets/shared/music/freakyMenu.$SOUND_EXT'];
 	// haya I love you for the base cache dump I took to the max
 	public static function clearUnusedMemory()
@@ -195,6 +203,9 @@ class Paths
 
 	inline static public function lua(key:String, ?folder:String)
 		return getPath('$key.lua', TEXT, folder, true);
+
+	inline static public function hx(key:String, ?folder:String)
+		return getPath('$key.hx', TEXT, folder, true);
 
 	static public function video(key:String)
 	{

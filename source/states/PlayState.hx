@@ -907,7 +907,7 @@ class PlayState extends MusicBeatState
 	public var videoCutscene:VideoSprite = null;
 	public function startVideo(name:String, forMidSong:Bool = false, canSkip:Bool = true, loop:Bool = false, playOnLoad:Bool = true)
 	{
-		#if VIDEOS_ALLOWED
+		#if VIDEOS_ALLOWED 
 		inCutscene = !forMidSong;
 		canPause = forMidSong;
 

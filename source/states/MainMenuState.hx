@@ -6,6 +6,17 @@ import lime.app.Application;
 import states.editors.MasterEditorMenu;
 import options.OptionsState;
 
+#if HSCRIPT_ALLOWED
+import backend.Paths;
+import backend.Mods;
+import psychlua.HScript;
+import psychlua.LuaUtils;
+import psychlua.HScript.HScriptInfos;
+import crowplexus.iris.Iris;
+import crowplexus.hscript.Expr.Error as IrisError;
+import crowplexus.hscript.Printer;
+#end
+
 enum MainMenuColumn {
 	LEFT;
 	CENTER;
@@ -28,8 +39,8 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		'credits'
+		#if MODS_ALLOWED 'mods' #if CREDITS_ALLOWED , #end #end
+		#if CREDITS_ALLOWED 'credits' #end
 	];
 
 	var leftOption:String = #if ACHIEVEMENTS_ALLOWED 'achievements' #else null #end;
@@ -38,10 +49,28 @@ class MainMenuState extends MusicBeatState
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 
+	#if HSCRIPT_ALLOWED
+	var canRunHScript:Bool = false;
+	var hscript:HScript;
+	public var hscriptArray:Array<HScript> = [];
+	var scriptPath:String;
+	#end
+
 	static var showOutdatedWarning:Bool = true;
 	override function create()
 	{
 		super.create();
+
+		#if HSCRIPT_ALLOWED
+		trace("Loading script...");
+		var path = 'mods/My-Mod/states/MainMenuState-script.hx';
+		startHScriptsNamed(path);
+		hscript = new HScript(null, path);
+		hscript.preset();
+		hscriptArray.push(hscript);
+		callOnHScript("onCreate", null, false, null);
+		canRunHScript = true;
+		#end
 
 		#if MODS_ALLOWED
 		Mods.pushGlobalMods();
@@ -128,6 +157,10 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		FlxG.camera.follow(camFollow, null, 0.15);
+
+		#if HSCRIPT_ALLOWED
+		if (canRunHScript) callOnHScript('onCreatePost', null, false, null);
+		#end
 	}
 
 	function createMenuItem(name:String, x:Float, y:Float):FlxSprite
@@ -150,6 +183,9 @@ class MainMenuState extends MusicBeatState
 	var timeNotMoving:Float = 0;
 	override function update(elapsed:Float)
 	{
+		#if HSCRIPT_ALLOWED
+		if (canRunHScript) callOnHScript('onUpdate', null, false, null);
+		#end
 		if (FlxG.sound.music.volume < 0.8)
 			FlxG.sound.music.volume = Math.min(FlxG.sound.music.volume + 0.5 * elapsed, 0.8);
 
@@ -353,6 +389,10 @@ class MainMenuState extends MusicBeatState
 		}
 
 		super.update(elapsed);
+
+		#if HSCRIPT_ALLOWED
+		if (canRunHScript) callOnHScript('onUpdatePost', null, false, null);
+		#end
 	}
 
 	function changeItem(change:Int = 0)
@@ -381,4 +421,90 @@ class MainMenuState extends MusicBeatState
 		selectedItem.centerOffsets();
 		camFollow.y = selectedItem.getGraphicMidpoint().y;
 	}
+
+
+	public function callOnHScript(funcToCall:String, args:Array<Dynamic> = null, ?ignoreStops:Bool = false, exclusions:Array<String> = null, excludeValues:Array<Dynamic> = null):Dynamic {
+		var returnVal:Dynamic = LuaUtils.Function_Continue;
+
+		if(exclusions == null) exclusions = new Array();
+		if(excludeValues == null) excludeValues = new Array();
+		excludeValues.push(LuaUtils.Function_Continue);
+
+		#if HSCRIPT_ALLOWED
+
+		var len:Int = hscriptArray.length;
+		if (len < 1)
+			trace("NO HSCRIPT FILES, RETURNING NULL");
+			return returnVal;
+
+		for(script in hscriptArray)
+		{
+			@:privateAccess
+			if(script == null || !script.exists(funcToCall) || exclusions.contains(script.origin))
+				continue;
+
+			var callValue = script.call(funcToCall, args);
+			if(callValue != null)
+			{
+				var myValue:Dynamic = callValue.returnValue;
+
+				if((myValue == LuaUtils.Function_StopHScript || myValue == LuaUtils.Function_StopAll) && !excludeValues.contains(myValue) && !ignoreStops)
+				{
+					returnVal = myValue;
+					break;
+				}
+
+				if(myValue != null && !excludeValues.contains(myValue))
+					returnVal = myValue;
+			}
+		}
+		#end
+		return returnVal;
+	}
+
+	#if HSCRIPT_ALLOWED
+	public function initHScript(file:String)
+	{
+		var newScript:HScript = null;
+		try
+		{
+			newScript = new HScript(null, file);
+			if (newScript.exists('onCreate')) newScript.call('onCreate');
+			trace('initialized hscript interp successfully: $file');
+			hscriptArray.push(newScript);
+		}
+		catch(e:IrisError)
+		{
+			var pos:HScriptInfos = cast {fileName: file, showLine: false};
+			Iris.error(Printer.errorToString(e, false), pos);
+			var newScript:HScript = cast (Iris.instances.get(file), HScript);
+			if(newScript != null)
+				newScript.destroy();
+		}
+	}
+	#end
+
+	#if HSCRIPT_ALLOWED
+	public function startHScriptsNamed(scriptFile:String)
+	{
+		#if MODS_ALLOWED
+		var scriptToLoad:String = Paths.modFolders(scriptFile);
+		scriptPath = scriptToLoad;
+		if(!FileSystem.exists(scriptToLoad))
+			scriptToLoad = Paths.getSharedPath(scriptFile);
+		#else
+		var scriptToLoad:String = Paths.getSharedPath(scriptFile);
+		scriptPath = scriptToLoad;
+		#end
+
+		if(FileSystem.exists(scriptToLoad))
+		{
+			if (Iris.instances.exists(scriptToLoad)) return false;
+
+			initHScript(scriptToLoad);
+			return true;
+		}
+		return false;
+	}
+	#end
 }

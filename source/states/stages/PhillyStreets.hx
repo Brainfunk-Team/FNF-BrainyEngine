@@ -150,7 +150,7 @@ class PhillyStreets extends BaseStage
 			switch (songName)
 			{
 				case 'darnell':
-					if(!seenCutscene) setStartCallback(videoCutscene.bind('darnellCutscene'));
+					setStartCallback(videoCutscene.bind('darnellCutscene'));
 				case '2hot':
 					setEndCallback(function()
 					{
