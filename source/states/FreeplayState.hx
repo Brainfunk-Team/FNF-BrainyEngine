@@ -3,6 +3,7 @@ package states;
 import backend.WeekData;
 import backend.Highscore;
 import backend.Song;
+import backend.SongMetadata;
 
 import objects.HealthIcon;
 import objects.MusicPlayer;
@@ -16,6 +17,8 @@ import flixel.util.FlxDestroyUtil;
 import openfl.utils.Assets;
 
 import haxe.Json;
+
+import states.CharacterSelectState;
 
 class FreeplayState extends MusicBeatState
 {
@@ -459,6 +462,11 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 		}
 
+		else if(controls.CHARACTER_SELECT && !player.playingMusic)
+		{
+			LoadingState.loadAndSwitchState(new CharacterSelectState());
+		}
+
 		updateTexts(elapsed);
 		super.update(elapsed);
 	}
@@ -605,24 +613,4 @@ class FreeplayState extends MusicBeatState
 		if (!FlxG.sound.music.playing && !stopMusicPlay)
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 	}	
-}
-
-class SongMetadata
-{
-	public var songName:String = "";
-	public var week:Int = 0;
-	public var songCharacter:String = "";
-	public var color:Int = -7179779;
-	public var folder:String = "";
-	public var lastDifficulty:String = null;
-
-	public function new(song:String, week:Int, songCharacter:String, color:Int)
-	{
-		this.songName = song;
-		this.week = week;
-		this.songCharacter = songCharacter;
-		this.color = color;
-		this.folder = Mods.currentModDirectory;
-		if(this.folder == null) this.folder = '';
-	}
 }

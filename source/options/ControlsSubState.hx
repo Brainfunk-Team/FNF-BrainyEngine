@@ -29,6 +29,8 @@ class ControlsSubState extends MusicBeatSubstate
 		[true, 'Up', 'ui_up', 'UI Up'],
 		[true, 'Right', 'ui_right', 'UI Right'],
 		[true],
+		[true, 'Character Select', "char_select", "Open Character Select"],
+		[true],
 		[true, 'Reset', 'reset', 'Reset'],
 		[true, 'Accept', 'accept', 'Accept'],
 		[true, 'Back', 'back', 'Back'],
