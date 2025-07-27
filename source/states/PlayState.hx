@@ -414,8 +414,33 @@ class PlayState extends MusicBeatState
 		if (!stageData.hide_girlfriend)
 		{
 			if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
-			gf = new Character(0, 0, SONG.gfVersion);
+
+			var gfVers:String;
+			var gfOffset:Array<Float> = [0, 0];
+
+			if (!SONG.doCharacterSelect)
+			{
+				switch (CharacterSelectState.character)
+				{
+					case "tankman-playable":
+						if (SONG.song.toLowerCase() != "tutorial" && SONG.stage != "limo" && !SONG.stage.startsWith("school") && !SONG.stage.startsWith("mall"))
+						{	
+							gfVers = 'gf-tankmen';
+							gfOffset[0] = -110;
+						}
+						else
+							gfVers = SONG.gfVersion;
+					default:
+						gfVers = SONG.gfVersion;
+				}
+			}
+			else
+				gfVers = SONG.gfVersion;
+
+			gf = new Character(0, 0, gfVers);
 			startCharacterPos(gf);
+			gf.x += gfOffset[0];
+			gf.y += gfOffset[1];
 			gfGroup.scrollFactor.set(0.95, 0.95);
 			gfGroup.add(gf);
 		}
