@@ -436,6 +436,9 @@ class PlayState extends MusicBeatState
 
 			case "limo":
 				charAppend = "-car";
+
+			case "school", "schoolEvil":
+				charAppend = "-pixel";
 		}
 
 		if (SONG.doCharacterSelect == null)

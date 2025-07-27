@@ -152,10 +152,6 @@ class CharacterSelectState extends MusicBeatState
 		bg.color = songs[curSelected].color;
 		intendedColor = bg.color;
 		lerpSelected = curSelected;
-
-		bottomBG = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
-		bottomBG.alpha = 0.6;
-		add(bottomBG);
 		
 		changeSelection();
 		updateTexts();
