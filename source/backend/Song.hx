@@ -33,6 +33,7 @@ typedef SwagSong =
 	@:optional var sevenEvent:String;
 	@:optional var sevenEventValue:String;
 	@:optional var ui:String;
+	@:optional var doCharacterSelect:Bool;
 }
 
 typedef SwagSection =

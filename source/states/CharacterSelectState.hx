@@ -11,7 +11,7 @@ import backend.MusicBeatState;
 
 class CharacterSelectState extends MusicBeatState
 {
-    public var character:String = "boyfriend";
+    public static var character:String = "bf";
     public var characters:Array<String>;
     public var data:Array<String>;
     public var datas:Array<Array<String>>;
@@ -72,7 +72,6 @@ class CharacterSelectState extends MusicBeatState
 		//Paths.clearUnusedMemory();
 		
 		persistentUpdate = true;
-		PlayState.isStoryMode = false;
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
@@ -257,7 +256,7 @@ class CharacterSelectState extends MusicBeatState
 		else if (controls.ACCEPT)
 		{
 			persistentUpdate = false;
-            character = data[0];
+            character = datas[curSelected][0];
             MusicBeatState.switchState(new FreeplayState());
 		}
 

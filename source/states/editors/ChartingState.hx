@@ -2362,6 +2362,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 	var sevenValue:PsychUIInputText;
 	var sevenDropDown:PsychUIDropDownMenu;
 	var sevenText:FlxText;
+	var characterSelect:PsychUICheckBox;
 
 	var sevenList:Array<String>;
 
@@ -2410,6 +2411,21 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			if(cur.trim().length < 1) Reflect.deleteField(PlayState.SONG, 'sevenEventValue');
 		}
 
+		objY += 20;
+
+		characterSelect = new PsychUICheckBox(objX, objY, "Use Character Select", 100, function() {
+			PlayState.SONG.doCharacterSelect = characterSelect.checked;
+		});
+
+		if (PlayState.SONG.doCharacterSelect == null)
+		{
+			characterSelect.checked = true;
+			PlayState.SONG.doCharacterSelect = true;
+		}
+		else
+			characterSelect.checked = PlayState.SONG.doCharacterSelect;
+
+
 		sevenValue.text = PlayState.SONG.sevenEventValue;
 
 		tab_group.add(sevenValue);
@@ -2417,6 +2433,8 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		tab_group.add(sevenText);
 
 		tab_group.add(sevenDropDown);
+
+		tab_group.add(characterSelect);
 	}
 
 	var playbackSlider:PsychUISlider;

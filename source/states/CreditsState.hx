@@ -1,5 +1,6 @@
 package states;
 
+#if CREDITS_ALLOWED
 import objects.AttachedSprite;
 
 class CreditsState extends MusicBeatState
@@ -265,3 +266,4 @@ class CreditsState extends MusicBeatState
 		return creditsStuff[num].length <= 1;
 	}
 }
+#end //no reason to compile this ENTIRE class

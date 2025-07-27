@@ -31,6 +31,7 @@ import cutscenes.DialogueBoxPsych;
 
 import states.StoryMenuState;
 import states.FreeplayState;
+import states.CharacterSelectState;
 import states.editors.ChartingState;
 import states.editors.CharacterEditorState;
 
@@ -423,7 +424,11 @@ class PlayState extends MusicBeatState
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
 
-		boyfriend = new Character(0, 0, SONG.player1, true);
+
+		if (!isStoryMode && SONG.doCharacterSelect)
+			boyfriend = new Character(0, 0, CharacterSelectState.character, true);
+		else
+			boyfriend = new Character(0, 0, SONG.player1, true);
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		
