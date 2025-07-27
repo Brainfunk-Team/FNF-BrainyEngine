@@ -1,3 +1,4 @@
 bf,bf,boyfriend,31b1d1
 pico-playable,pico,pico,b7d855
 tankman-playable,tankman,tankman,ffffff
+spooky-playable,spooky,skid & pump,d57c00

@@ -430,6 +430,7 @@ class PlayState extends MusicBeatState
 						}
 						else
 							gfVers = SONG.gfVersion;
+					
 					default:
 						gfVers = SONG.gfVersion;
 				}
