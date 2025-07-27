@@ -3,6 +3,9 @@ package states.stages;
 import states.stages.objects.*;
 import objects.Character;
 
+//FUNKIN CREW WHY DO YOU HAVE TO MAKE THIS SO MUCH HARDER ON MEEEEEEEE - brainy
+import backend.animation.adobeanimate.FlxAtlasSprite;
+
 class Philly extends BaseStage
 {
 	var phillyLightsColors:Array<FlxColor>;
@@ -47,16 +50,6 @@ class Philly extends BaseStage
 
 		phillyStreet = new BGSprite('philly/street', -40, 50);
 		add(phillyStreet);
-
-		if (boyfriend.name == "pico-playable" && dad.name == "pico")
-		{
-			picoDoppelgangerCutscene();
-		}
-	}
-
-	public function picoDoppelgangerCutscene()
-	{
-
 	}
 
 	override function eventPushed(event:objects.Note.EventNote)
