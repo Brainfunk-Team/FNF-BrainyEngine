@@ -173,11 +173,12 @@ class FreeplayState extends MusicBeatState
 		lerpSelected = curSelected;
 
 		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
-		
+
+
 		#if CHARACTER_SELECT
-		var bgHeight:Float = 39;
+		var bgHeight:Int = 39;
 		#else
-		var bgHeight:Float = 26;
+		var bgHeight:Int = 26;
 		#end
 
 		bottomBG = new FlxSprite(0, FlxG.height - bgHeight).makeGraphic(FlxG.width, bgHeight, 0xFF000000);
