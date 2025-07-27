@@ -18,7 +18,7 @@ Copy and paste this file into your mods folder in the data folder. You won't wan
 CHARACTER INTERNAL NAME (JSON FILE),ICONNAME,DISPLAYNAME,BGCOLOR (HEX CODE)
 ```
 
-Now, you can fill out the fields for your character (of course you'll want to make your character JSON file in the Character Editor first, it is reccomended that a playable character has miss animations, and hey and cheer animations), and you're done!
+Now, you can fill out the fields for your character (of course you'll want to make your character JSON file in the Character Editor first, it is recommended that a playable character has miss animations, and hey and cheer animations), and you're done!
 
 If you want a special character to appear in certain stages, for the `limo` stage you can add the suffix `-car`, for the school/schoolEvil stage you can add the suffix `-pixel`, and for the mall/mallEvil stage you can add the suffix `-christmas`.
 
