@@ -28,7 +28,7 @@
 				-65,
 				-16
 			],
-			"anim": "singLEFT",
+			"anim": "singRIGHT",
 			"fps": 24,
 			"name": "note sing left",
 			"indices": []
@@ -39,7 +39,7 @@
 				90,
 				-14
 			],
-			"anim": "singRIGHT",
+			"anim": "singLEFT",
 			"fps": 24,
 			"name": "spooky sing right",
 			"indices": []
@@ -127,5 +127,5 @@
 	],
 	"sing_duration": 4,
 	"scale": 1,
-	"_editor_isPlayer": false
+	"_editor_isPlayer": true
 }
