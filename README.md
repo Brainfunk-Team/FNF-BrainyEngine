@@ -45,6 +45,14 @@ function onCreatePost() {
 ````
 
 ---
+
+### Character Select
+
+![Character Select](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/.files/characterselect.png?raw=true)
+
+A character select system that makes it easy to add custom characters to the list!
+
+---
 ## Credits: Brainy Engine Team
 * [Brainy0789](https://github.com/Brainy0789) - Owner of the project
 * [OfficialGamer](https://github.com/Official3Gamer) - Developer
