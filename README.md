@@ -52,6 +52,8 @@ function onCreatePost() {
 
 A character select system that makes it easy to add custom characters to the list!
 
+![Quick Tutorial](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/docs/CUSTOM_PLAYER_CHARACTERS.md))
+
 ---
 ## Credits: Brainy Engine Team
 * [Brainy0789](https://github.com/Brainy0789) - Owner of the project
