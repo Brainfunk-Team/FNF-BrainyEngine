@@ -7,6 +7,7 @@
 - [ ] Add Menu Editor
 - [ ] Fix custom menu music feature
 - [ ] Add Erect/Nightmare difficulties to base game
-- [ ] Add character select screen + Pico (or any other character, if a mod needs it) Mixes
+- [x] Add character select screen 
+- [ ] Add Pico (or any other character, if a mod needs it) Mixes
 
 > Last Updated 7/26/2025

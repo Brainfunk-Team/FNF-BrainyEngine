@@ -425,8 +425,27 @@ class PlayState extends MusicBeatState
 		dadGroup.add(dad);
 
 
-		if (!isStoryMode && SONG.doCharacterSelect)
-			boyfriend = new Character(0, 0, CharacterSelectState.character, true);
+		var doCharacterSelect:Bool = SONG.doCharacterSelect;
+
+		var charAppend:String = "";
+
+		switch (SONG.stage) //TODO: MAKE THIS EASIER TO SOFTCODED, COULD PROB BE DONE IN HSCRIPT, ANYWAY. AT LEAST MAKE AN HSCRIPT EXAMPLE?
+		{
+			case "mall", "mallEvil":
+				charAppend = "-christmas";
+
+			case "limo":
+				charAppend = "-car";
+		}
+
+		if (SONG.doCharacterSelect == null)
+			doCharacterSelect = true; //default to true so everything works without manually changing each chart.
+
+		if (!isStoryMode && doCharacterSelect)
+			if (charExists(CharacterSelectState.character + charAppend))
+				boyfriend = new Character(0, 0, CharacterSelectState.character + charAppend, true);
+			else
+				boyfriend = new Character(0, 0, CharacterSelectState.character, true);
 		else
 			boyfriend = new Character(0, 0, SONG.player1, true);
 		startCharacterPos(boyfriend);
@@ -708,6 +727,21 @@ class PlayState extends MusicBeatState
 		cachePopUpScore();
 
 		if(eventNotes.length < 1) checkEventNote();
+	}
+
+	public function charExists(character:String):Bool
+	{
+		var characterPath:String = 'characters/$character.json';
+
+		var path:String = Paths.getPath(characterPath, TEXT);
+		
+		#if MODS_ALLOWED
+		return FileSystem.exists(path);
+		#else
+		return Assets.exists(path);
+		#end
+
+		return false; //literally impossible why did i add this
 	}
 
 	function setBotplayTxt()

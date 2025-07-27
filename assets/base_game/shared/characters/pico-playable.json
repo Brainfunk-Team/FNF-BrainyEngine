@@ -127,11 +127,19 @@
 			"fps": 24,
 			"name": "Pico HEY!!",
 			"indices": []
+		},
+		{
+			"offsets": [45, 20],
+			"indices": [],
+			"fps": 24,
+			"anim": "cheer",
+			"loop": false,
+			"name": "Pico YEAH cheer"
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/Pico_FNF_assetss, characters/picoAnims/Pico_Intro, characters/picoAnims/Pico_Shooting, characters/pico-cheer",
+	"image": "characters/Pico_FNF_assetss, characters/picoAnims/Pico_Intro, characters/picoAnims/Pico_Shooting, characters/pico-cheer, characters/pico-yeah",
 	"position": [0, 300],
 	"healthicon": "pico",
 	"flip_x": true,
