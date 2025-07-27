@@ -11,6 +11,7 @@ import backend.MusicBeatState;
 
 class CharacterSelectState extends MusicBeatState
 {
+	#if CHARACTER_SELECT
     public static var character:String = "bf";
     public var characters:Array<String>;
     public var data:Array<String>;
@@ -287,4 +288,5 @@ class CharacterSelectState extends MusicBeatState
 			_lastVisibles.push(i);
 		}
 	}
+	#end
 }

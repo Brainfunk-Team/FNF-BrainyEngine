@@ -173,12 +173,23 @@ class FreeplayState extends MusicBeatState
 		lerpSelected = curSelected;
 
 		curDifficulty = Math.round(Math.max(0, Difficulty.defaultList.indexOf(lastDifficultyName)));
+		
+		#if CHARACTER_SELECT
+		var bgHeight:Float = 39;
+		#else
+		var bgHeight:Float = 26;
+		#end
 
-		bottomBG = new FlxSprite(0, FlxG.height - 39).makeGraphic(FlxG.width, 39, 0xFF000000);
+		bottomBG = new FlxSprite(0, FlxG.height - bgHeight).makeGraphic(FlxG.width, bgHeight, 0xFF000000);
 		bottomBG.alpha = 0.6;
 		add(bottomBG);
 
+		#if CHARACTER_SELECT
 		var leText:String = Language.getPhrase("freeplay_tip", "Press CHARACTER SELECT to change character\nPress SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.");
+		#else
+		var leText:String = Language.getPhrase("freeplay_tip", "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.");
+		#end
+		
 		bottomString = leText;
 		var size:Int = 16;
 		bottomText = new FlxText(bottomBG.x, bottomBG.y + 4, FlxG.width, leText, size);

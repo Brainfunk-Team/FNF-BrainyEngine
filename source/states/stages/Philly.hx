@@ -47,7 +47,18 @@ class Philly extends BaseStage
 
 		phillyStreet = new BGSprite('philly/street', -40, 50);
 		add(phillyStreet);
+
+		if (boyfriend.name == "pico-playable" && dad.name == "pico")
+		{
+			picoDoppelgangerCutscene();
+		}
 	}
+
+	public function picoDoppelgangerCutscene()
+	{
+
+	}
+
 	override function eventPushed(event:objects.Note.EventNote)
 	{
 		switch(event.event)
