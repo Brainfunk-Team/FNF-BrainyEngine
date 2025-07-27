@@ -12,7 +12,7 @@ import backend.MusicBeatState;
 class CharacterSelectState extends MusicBeatState
 {
 	#if CHARACTER_SELECT
-    public static var character:String = "bf";
+    public static var character:String = "default";
     public var characters:Array<String>;
     public var data:Array<String>;
     public var datas:Array<Array<String>>;
@@ -120,6 +120,7 @@ class CharacterSelectState extends MusicBeatState
 			songText.snapToPosition();
 
 			Mods.currentModDirectory = songs[i].folder;
+
 			var icon:HealthIcon = new HealthIcon(songs[i].songCharacter);
 			icon.sprTracker = songText;
 
@@ -130,7 +131,8 @@ class CharacterSelectState extends MusicBeatState
 
 			// using a FlxGroup is too much fuss!
 			iconArray.push(icon);
-			add(icon);
+			if (datas[i][0] != "empty")
+				add(icon);
 
 			// songText.x += 40;
 			// DONT PUT X IN THE FIRST PARAMETER OF new ALPHABET() !!
@@ -284,7 +286,10 @@ class CharacterSelectState extends MusicBeatState
 			item.y = ((item.targetY - lerpSelected) * 1.3 * item.distancePerItem.y) + item.startPosition.y;
 
 			var icon:HealthIcon = iconArray[i];
-			icon.visible = icon.active = true;
+			if (datas[i][1] != "empty")
+				icon.visible = icon.active = true;
+			else
+				icon.visible = icon.active = false;
 			_lastVisibles.push(i);
 		}
 	}

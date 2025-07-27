@@ -107,7 +107,25 @@ class School extends BaseStage
 	var doof:DialogueBox = null;
 	function initDoof()
 	{
-		var file:String = Paths.txt('$songName/${songName}Dialogue_${ClientPrefs.data.language}'); //Checks for vanilla/Senpai dialogue
+
+		var file:String = "";
+
+		if (ClientPrefs.data.naughty)
+			file = Paths.txt('$songName/${songName}Dialogue_${ClientPrefs.data.language}'); //Checks for vanilla/Senpai dialogue
+		else
+			file = Paths.txt('$songName/${songName}Dialogue_${ClientPrefs.data.language}_censored');
+
+		if (!ClientPrefs.data.naughty)
+		{
+			#if MODS_ALLOWED
+			if (!FileSystem.exists(file))
+			#else
+			if (!OpenFlAssets.exists(file))
+			#end
+			{
+				file = Paths.txt('$songName/${songName}Dialogue_censored');
+			}
+		}
 		#if MODS_ALLOWED
 		if (!FileSystem.exists(file))
 		#else

@@ -43,6 +43,12 @@ class MiscSettingsSubState extends BaseOptionsMenu
 			BOOL);
 		addOption(option);
 
+		var option:Option = new Option('Naughtyness',
+			'If checked, censors any potential inappropriate stuff.',
+			'naughty',
+			BOOL);
+		addOption(option);
+
 		super();
 	}
 

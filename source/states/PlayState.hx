@@ -418,7 +418,7 @@ class PlayState extends MusicBeatState
 			var gfVers:String;
 			var gfOffset:Array<Float> = [0, 0];
 
-			if (!SONG.doCharacterSelect)
+			if (!SONG.doCharacterSelect && CharacterSelectState.character == "default")
 			{
 				switch (CharacterSelectState.character)
 				{
@@ -450,6 +450,7 @@ class PlayState extends MusicBeatState
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
 
+		#if CHARACTER_SELECT
 
 		var doCharacterSelect:Bool = SONG.doCharacterSelect;
 
@@ -467,8 +468,12 @@ class PlayState extends MusicBeatState
 				charAppend = "-pixel";
 		}
 
+
 		if (SONG.doCharacterSelect == null)
 			doCharacterSelect = true; //default to true so everything works without manually changing each chart.
+
+		if (CharacterSelectState.character == "default")
+			doCharacterSelect = false; //eh this is lazy but it works
 
 		if (!isStoryMode && doCharacterSelect)
 			if (charExists(CharacterSelectState.character + charAppend))
@@ -477,6 +482,11 @@ class PlayState extends MusicBeatState
 				boyfriend = new Character(0, 0, CharacterSelectState.character, true);
 		else
 			boyfriend = new Character(0, 0, SONG.player1, true);
+
+		#else
+		boyfriend = new Character(0, 0, SONG.player1, true);
+		#end
+
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		
