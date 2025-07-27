@@ -9,5 +9,6 @@
 - [ ] Add Erect/Nightmare difficulties to base game
 - [x] Add character select screen 
 - [ ] Add Pico (or any other character, if a mod needs it) Mixes
+- [ ] Add Pico doppelganger cutscene
 
-> Last Updated 7/26/2025
+> Last Updated 7/27/2025

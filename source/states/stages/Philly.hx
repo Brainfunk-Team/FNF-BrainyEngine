@@ -3,8 +3,7 @@ package states.stages;
 import states.stages.objects.*;
 import objects.Character;
 
-//FUNKIN CREW WHY DO YOU HAVE TO MAKE THIS SO MUCH HARDER ON MEEEEEEEE - brainy
-import backend.animation.adobeanimate.FlxAtlasSprite;
+//TODO: IMPLEMENT DOPPELGANGER CUTSCENE
 
 class Philly extends BaseStage
 {
