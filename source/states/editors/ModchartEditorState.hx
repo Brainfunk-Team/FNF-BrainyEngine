@@ -25,7 +25,7 @@ import backend.ui.*;
 typedef StrumLineData = {
     var x:Array<Float>;
     var y:Array<Float>;
-    var scale:Array<Float>;
+    var rotation:Array<Float>;
     var alpha:Array<Float>;
 }
 
@@ -61,7 +61,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
     private var reverseEveryOtherCheckbox:PsychUICheckBox;
     private var strumLineXInputs:Array<PsychUIInputText>;
     private var strumLineYInputs:Array<PsychUIInputText>;
-    private var strumLineScaleInputs:Array<PsychUIInputText>;
+    private var strumLinerotationInputs:Array<PsychUIInputText>;
     private var strumLineAlphaInputs:Array<PsychUIInputText>;
     private var timeInput:PsychUINumericStepper;
     private var beatBasedEase:PsychUICheckBox;
@@ -106,7 +106,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         return {
             x: [0, 0, 0, 0, 0, 0, 0, 0],
             y: [0, 0, 0, 0, 0, 0, 0, 0],
-            scale: [1, 1, 1, 1, 1, 1, 1, 1],
+            rotation: [0, 0, 0, 0, 0, 0, 0, 0],
             alpha: [1, 1, 1, 1, 1, 1, 1, 1]
         };
 
@@ -139,10 +139,10 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
 
         strumLineXInputs = new Array();
         strumLineYInputs = new Array();
-        strumLineScaleInputs = new Array();
+        strumLinerotationInputs = new Array();
         strumLineAlphaInputs = new Array();
 
-        var headers:Array<String> = ["X", "Y", "Scale", "Alpha"];
+        var headers:Array<String> = ["X", "Y", "Rotation", "Alpha"];
         var headersPos:Array<Float> = [objX, objX + 110, objX + 220, objX + 330];
 
         var i:Int = 0;
@@ -155,11 +155,11 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
         for (i in 0...8) {
             strumLineXInputs.push(new PsychUIInputText(objX, objY));
             strumLineYInputs.push(new PsychUIInputText(objX+110, objY));
-            strumLineScaleInputs.push(new PsychUIInputText(objX+220, objY));
+            strumLinerotationInputs.push(new PsychUIInputText(objX+220, objY));
             strumLineAlphaInputs.push(new PsychUIInputText(objX+330, objY));
             mainBox.getTab("Properties").menu.add(strumLineXInputs[i]);
             mainBox.getTab("Properties").menu.add(strumLineYInputs[i]);
-            mainBox.getTab("Properties").menu.add(strumLineScaleInputs[i]);
+            mainBox.getTab("Properties").menu.add(strumLinerotationInputs[i]);
             mainBox.getTab("Properties").menu.add(strumLineAlphaInputs[i]);
             objY += 30;
         }
@@ -236,7 +236,7 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
 
         stepFile += "\nfunction onStepHit()";
         stepFile += "\n" + indent(1) + "run = curStep % " + run;
-        stepFile += "\n" + indent(1) + "if run == 0  then";
+        stepFile += "\n" + indent(1) + "if run == 0  or curStep == 1 then";
 
         var i:Int = 0;
         for (field in strumLineData.x) {
@@ -267,13 +267,21 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
             i += 1;
         }
 
+        for (field in strumLineData.alpha) {
+            if (field != 1 || !Math.isNaN(field))
+            {
+                stepFile += "\n" + indent(2) + "noteTweenAngle('noteTweenAngle" + i + "', " + i + ", " + field + ", easeTime, " + "'" + modChartData.type + "')";
+            }
+            i += 1;
+        }
+
         stepFile += "\n" + indent(1) + "end";
 
         if (modChartData.reverseEveryOther)
         {
             i = 0;
 
-            stepFile += indent(1) + "\nif run == " + modChartData.everySteps + " then";
+            stepFile += indent(1) + "\nif run == " + (modChartData.everySteps + 1) + "then";
             for (field in strumLineData.x) {
                 if (field != 0)
                 {
@@ -301,6 +309,15 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
                 }
                 i += 1;
             }
+
+            i = 0;
+            for (field in strumLineData.rotation) {
+                if (field != 1)
+                {
+                    stepFile += "\n" + indent(2) + "noteTweenAlpha('noteTweenAngle" + i + "', " + i + ", " + field + ", easeTime, " + "'" + modChartData.type + "')";
+                }
+            }
+
             stepFile += "\nend";
         }
 
@@ -394,10 +411,10 @@ class ModchartEditorState extends MusicBeatState implements PsychUIEventHandler.
 
                 i = 0;
 
-                for (input in strumLineScaleInputs) {
+                for (input in strumLinerotationInputs) {
                     if (sender == input) {
                         var value = if (input.text != null) input.text else "0";
-                        strumLineData.scale[i] = Std.parseFloat(input.text);
+                        strumLineData.rotation[i] = Std.parseFloat(input.text);
                     }
                     i++;
                 }
