@@ -48,6 +48,7 @@ import states.TitleState;
 	public var checkForUpdates:Bool = true;
 	public var comboStacking:Bool = true;
 	public var naughty:Bool = true;
+	public var vanillaHealthBar:Bool = false;
 
 	public var skipSplash:Bool = false;
 	public var botplayTxt:Bool = false;

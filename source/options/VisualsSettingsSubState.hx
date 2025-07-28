@@ -136,6 +136,12 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 			BOOL);
 		addOption(option);
 
+		var option:Option = new Option('Vanilla Health Bar Colors',
+			"If checked, enables the vanilla health bar colors rather than based on the icon colors.",
+			'vanillaHealthBar',
+			BOOL);
+		addOption(option);
+
 		super();
 		add(notes);
 		add(splashes);

@@ -420,11 +420,29 @@ class PlayState extends MusicBeatState
 		var gfVers:String;
 		var gfOffset:Array<Float> = [0, 0];
 
+		#if CHARACTER_SELECT
+		var charAppend:String = "";
+
+		switch (SONG.stage) //TODO: MAKE THIS EASIER TO SOFTCODED, COULD PROB BE DONE IN HSCRIPT, ANYWAY. AT LEAST MAKE AN HSCRIPT EXAMPLE?
+		{
+			case "mall", "mallEvil":
+				charAppend = "-christmas";
+
+			case "limo":
+				charAppend = "-car";
+
+			case "school", "schoolEvil":
+				charAppend = "-pixel";
+		}
+		#end
+
 		if (!stageData.hide_girlfriend)
 		{
 			if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
 
 			#if CHARACTER_SELECT
+
+			
 			if (!SONG.doCharacterSelect || CharacterSelectState.character == "default")
 			{
 				switch (CharacterSelectState.character)
@@ -457,13 +475,19 @@ class PlayState extends MusicBeatState
 			gfVers = SONG.gfVersion;
 			#end
 
+			if (charExists(gfVers + charAppend))
+				gfVers = gfVers + charAppend;
+
+			if (gfVers == "nene-pixel")
+				gfVers =  SONG.gfVersion;
+
 			gf = new Character(0, 0, gfVers); //TODO: add seperate speaker support for GF, softcoded.
 			startCharacterPos(gf);
 			gfGroup.x += gfOffset[0];
 			gfGroup.y += gfOffset[1];
 			gfGroup.scrollFactor.set(0.95, 0.95);
 
-			isAbot = (gfVers == "nene" || gfVers == "otis-speaker");
+			isAbot = (gfVers == "nene" || gfVers == "otis-speaker" || gfVers == "nene-christmas" || gfVers == "nene-pixel");
 
 			if (isAbot && (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin"))
 				gfGroup.y -= 225;
@@ -491,20 +515,6 @@ class PlayState extends MusicBeatState
 
 		var doCharacterSelect:Bool = SONG.doCharacterSelect;
 
-		var charAppend:String = "";
-
-		switch (SONG.stage) //TODO: MAKE THIS EASIER TO SOFTCODED, COULD PROB BE DONE IN HSCRIPT, ANYWAY. AT LEAST MAKE AN HSCRIPT EXAMPLE?
-		{
-			case "mall", "mallEvil":
-				charAppend = "-christmas";
-
-			case "limo":
-				charAppend = "-car";
-
-			case "school", "schoolEvil":
-				charAppend = "-pixel";
-		}
-
 
 		if (SONG.doCharacterSelect == null)
 			doCharacterSelect = true; //default to true so everything works without manually changing each chart.
@@ -521,11 +531,10 @@ class PlayState extends MusicBeatState
 			switch (SONG.song.toLowerCase())
 			{
 				case "stress":
-					if (CharacterSelectState.character == "pico-playable")
-						boyfriend = new Character(0, 0, "pico-and-nene", true);
-					else
-						boyfriend = new Character(0, 0, CharacterSelectState.character, true);
+					if (CharacterSelectState.character == "pico-playable") charString = "pico-and-nene";
 			}
+
+			boyfriend = new Character(0, 0, charString, true);
 		}
 				
 		else
@@ -921,8 +930,11 @@ class PlayState extends MusicBeatState
 	#end
 
 	public function reloadHealthBarColors() {
-		healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		if (!ClientPrefs.data.vanillaHealthBar)
+			healthBar.setColors(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+				FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		else
+			healthBar.setColors(0xFFFF0000, 0xFF66FF33);
 	}
 
 	public function addCharacterToList(newCharacter:String, type:Int) {
