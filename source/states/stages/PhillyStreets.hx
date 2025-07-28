@@ -134,6 +134,8 @@ class PhillyStreets extends BaseStage
 		abot = new ABotSpeaker(gfGroup.x, gfGroup.y + 550);
 		updateABotEye(true);
 		add(abot);
+
+		gfGroup.x -= 160;
 		
 		if(ClientPrefs.data.shaders)
 			setupRainShader();

@@ -392,6 +392,8 @@ class PlayState extends MusicBeatState
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
 
+		//TODO: ADD ERECT STAGES
+
 		switch (curStage)
 		{
 			case 'stage': new StageWeek1(); 			//Week 1
@@ -406,6 +408,7 @@ class PlayState extends MusicBeatState
 			case 'phillyStreets': new PhillyStreets(); 	//Weekend 1 - Darnell, Lit Up, 2Hot
 			case 'phillyBlazin': new PhillyBlazin();	//Weekend 1 - Blazin
 		}
+
 		if(isPixelStage) introSoundsSuffix = '-pixel';
 
 		#if (LUA_ALLOWED || HSCRIPT_ALLOWED)
@@ -422,7 +425,7 @@ class PlayState extends MusicBeatState
 			if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
 
 			#if CHARACTER_SELECT
-			if (!SONG.doCharacterSelect && CharacterSelectState.character == "default")
+			if (!SONG.doCharacterSelect || CharacterSelectState.character == "default")
 			{
 				switch (CharacterSelectState.character)
 				{
@@ -437,7 +440,10 @@ class PlayState extends MusicBeatState
 
 					case "pico-playable": //not setting offsets here since nene's offsets need to be global, even if your not playing as pico
 						if (SONG.song.toLowerCase() != "tutorial")
-							gfVers = 'nene';
+							if (SONG.song.toLowerCase() == "stress")
+								gfVers = 'otis-speaker'
+							else
+								gfVers = 'nene';
 						else
 							gfVers = SONG.gfVersion;
 					
@@ -507,10 +513,21 @@ class PlayState extends MusicBeatState
 			doCharacterSelect = false; //eh this is lazy but it works
 
 		if (!isStoryMode && doCharacterSelect)
-			if (charExists(CharacterSelectState.character + charAppend))
-				boyfriend = new Character(0, 0, CharacterSelectState.character + charAppend, true);
-			else
-				boyfriend = new Character(0, 0, CharacterSelectState.character, true);
+		{
+			var charString:String = CharacterSelectState.character;
+			if (charExists(charString + charAppend))
+				charString = charString + charAppend;
+			
+			switch (SONG.song.toLowerCase())
+			{
+				case "stress":
+					if (CharacterSelectState.character == "pico-playable")
+						boyfriend = new Character(0, 0, "pico-and-nene", true);
+					else
+						boyfriend = new Character(0, 0, CharacterSelectState.character, true);
+			}
+		}
+				
 		else
 			boyfriend = new Character(0, 0, SONG.player1, true);
 

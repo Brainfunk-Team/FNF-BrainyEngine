@@ -95,8 +95,8 @@ class Tank extends BaseStage
 		{
 			for (daGf in gfGroup)
 			{
-				var gf:Character = cast daGf;
-				if(gf.curCharacter == 'pico-speaker')
+				var gf:Character = PlayState.instance.gf;
+				if(gf.curCharacter == 'pico-speaker' || gf.curCharacter == 'otis-speaker')
 				{
 					var firstTank:TankmenBG = new TankmenBG(20, 500, true);
 					firstTank.resetShit(20, 1500, true);
