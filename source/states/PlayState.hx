@@ -457,7 +457,7 @@ class PlayState extends MusicBeatState
 			gfGroup.y += gfOffset[1];
 			gfGroup.scrollFactor.set(0.95, 0.95);
 
-			isAbot = (gfVers == "nene" || gfVers == "otis-speaker")
+			isAbot = (gfVers == "nene" || gfVers == "otis-speaker");
 
 			if (isAbot && (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin"))
 				gfGroup.y -= 225;
