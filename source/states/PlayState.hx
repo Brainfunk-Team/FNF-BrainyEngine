@@ -163,6 +163,7 @@ class PlayState extends MusicBeatState
 	public var dad:Character = null;
 	public var gf:Character = null;
 	public var boyfriend:Character = null;
+	public var aBot:ABotSpeaker = null;
 
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
@@ -411,23 +412,30 @@ class PlayState extends MusicBeatState
 		add(luaDebugGroup);
 		#end
 
+		var gfVers:String;
+		var gfOffset:Array<Float> = [0, 0];
+
 		if (!stageData.hide_girlfriend)
 		{
 			if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
 
-			var gfVers:String;
-			var gfOffset:Array<Float> = [0, 0];
-
+			#if CHARACTER_SELECT
 			if (!SONG.doCharacterSelect && CharacterSelectState.character == "default")
 			{
 				switch (CharacterSelectState.character)
 				{
 					case "tankman-playable":
-						if (SONG.song.toLowerCase() != "tutorial" && SONG.stage != "limo" && !SONG.stage.startsWith("school") && !SONG.stage.startsWith("mall"))
+						if (SONG.song.toLowerCase() != "tutorial" && !SONG.stage.startsWith("school") && !SONG.stage.startsWith("mall"))
 						{	
 							gfVers = 'gf-tankmen';
 							gfOffset[0] = -110;
 						}
+						else
+							gfVers = SONG.gfVersion;
+
+					case "pico-playable": //not setting offsets here since nene's offsets need to be global, even if your not playing as pico
+						if (SONG.song.toLowerCase() != "tutorial")
+							gfVers = 'nene';
 						else
 							gfVers = SONG.gfVersion;
 					
@@ -437,12 +445,31 @@ class PlayState extends MusicBeatState
 			}
 			else
 				gfVers = SONG.gfVersion;
+			#else
+			gfVers = SONG.gfVersion;
+			#end
 
-			gf = new Character(0, 0, gfVers);
+			gf = new Character(0, 0, gfVers); //TODO: add seperate speaker support for GF, softcoded.
 			startCharacterPos(gf);
-			gf.x += gfOffset[0];
-			gf.y += gfOffset[1];
+			gfGroup.x += gfOffset[0];
+			gfGroup.y += gfOffset[1];
 			gfGroup.scrollFactor.set(0.95, 0.95);
+
+			if (gfVers == "nene" && (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin"))
+				gfGroup.y -= 225;
+
+			if (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin")
+				aBot = new ABotSpeaker(gf.x - 50, gfGroup.y + 615); //this position has been the bane of my life
+			
+			if (gfVers == "nene")
+			{
+				if (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin")
+				{
+					updateABotEye(true);
+					gfGroup.add(aBot);
+				}
+			}
+
 			gfGroup.add(gf);
 		}
 
@@ -766,6 +793,16 @@ class PlayState extends MusicBeatState
 		cachePopUpScore();
 
 		if(eventNotes.length < 1) checkEventNote();
+	}
+
+	function updateABotEye(finishInstantly:Bool = false)
+	{
+		if(PlayState.SONG.notes[Std.int(FlxMath.bound(curSection, 0, PlayState.SONG.notes.length - 1))].mustHitSection == true)
+			aBot.lookRight();
+		else
+			aBot.lookLeft();
+
+		if(finishInstantly) aBot.eyes.anim.curFrame = aBot.eyes.anim.length - 1;
 	}
 
 	public function charExists(character:String):Bool
@@ -1421,6 +1458,10 @@ class PlayState extends MusicBeatState
 		#end
 		setOnScripts('songLength', songLength);
 		callOnScripts('onSongStart');
+
+		if (gf.curCharacter == "nene")
+			if (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin")
+				aBot.snd = FlxG.sound.music;
 	}
 
 	private var noteTypes:Array<String> = [];
@@ -3540,6 +3581,10 @@ class PlayState extends MusicBeatState
 
 		setOnScripts('curSection', curSection);
 		callOnScripts('onSectionHit');
+
+		if (gf.curCharacter == "nene")
+			if (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin")
+				updateABotEye(false);
 	}
 
 	#if LUA_ALLOWED

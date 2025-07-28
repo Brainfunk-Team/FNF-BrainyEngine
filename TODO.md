@@ -10,6 +10,7 @@
 - [x] Add character select screen 
 - [ ] Add Pico (or any other character, if a mod needs it) Mixes
 - [ ] Add Pico doppelganger cutscene
-- [ ] Make ABot speaker not exclusive to Weekend 1
+- [x] Make ABot speaker not exclusive to Weekend 1
+- [ ] Add softcoded support for seperated speaker for Girlfriends, probably in character editor
 
 > Last Updated 7/27/2025
