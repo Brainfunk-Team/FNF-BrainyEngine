@@ -1,5 +1,6 @@
 package psychlua;
 
+import states.HScriptState;
 import flixel.FlxBasic;
 import objects.Character;
 import psychlua.LuaUtils;
@@ -180,6 +181,7 @@ class HScript extends Iris
 		set('FlxAnimate', FlxAnimate);
 		#end
 
+
 		// Functions & Variables
 		set('setVar', function(name:String, value:Dynamic) {
 			MusicBeatState.getVariables().set(name, value);
@@ -347,6 +349,9 @@ class HScript extends Iris
 		set('Function_StopLua', LuaUtils.Function_StopLua); //doesnt do much cuz HScript has a lower priority than Lua
 		set('Function_StopHScript', LuaUtils.Function_StopHScript);
 		set('Function_StopAll', LuaUtils.Function_StopAll);
+		set('loadHScriptState', function(stateName) {
+			LoadingState.loadAndSwitchState(new HScriptState(stateName));
+		});
 	}
 
 	#if LUA_ALLOWED

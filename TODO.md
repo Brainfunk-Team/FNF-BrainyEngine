@@ -1,8 +1,9 @@
 # TODO
 
-- [ ] Add softcoded UI system
+- [x] Add softcoded UI system
 - [ ] Add UI Editor
 - [ ] Allow for HScript files to be run in any state (putting a pin in this for now)
+- [x] Add custom softcoded states
 - [x] Anticheat System
 - [ ] Add Menu Editor
 - [ ] Fix custom menu music feature

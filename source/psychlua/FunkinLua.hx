@@ -26,6 +26,7 @@ import objects.Character;
 import states.MainMenuState;
 import states.StoryMenuState;
 import states.FreeplayState;
+import states.HScriptState;
 
 import substates.PauseSubState;
 import substates.GameOverSubstate;
@@ -86,6 +87,10 @@ class FunkinLua {
 		set('luaDeprecatedWarnings', true);
 		set('version', MainMenuState.psychEngineVersion.trim());
 		set('modFolder', this.modFolder);
+
+		set('loadHScriptState', function(stateName) {
+			LoadingState.loadAndSwitchState(new HScriptState(stateName));
+		});
 
 		// Song/Week shit
 		set('curBpm', Conductor.bpm);
