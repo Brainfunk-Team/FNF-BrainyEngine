@@ -64,7 +64,7 @@ A character select system that makes it easy to add custom characters to the lis
 * Starless - Android playtester
 
 ## Credits: Psych Engine Team
-* Shadow Mario - Main Programmer and Head of Psych Engine.
-* Riveren - Main Artist/Animator of Psych Engine.
+* [Shadow Mario](https://github.com/ShadowMario) - Main Programmer and Head of Psych Engine.
+* [Riveren](https://riveroaken.newgrounds.com) - Main Artist/Animator of Psych Engine.
 
 [View Old Psych Engine README](https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/8f59cb8e3c23c3fc012e61c6e4b7d1e927318846/PSYCH-README.md)
