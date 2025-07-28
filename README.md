@@ -38,7 +38,6 @@ import states.PlayState;
 function onCreatePost() {
     var i = 0;
 
-    if 
     for (text in PlayState.instance.uiText) {
         PlayState.instance.uiText[i].setFormat("vcr.ttf", 100);
         i += 1;
