@@ -2,7 +2,9 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/Brainfunk-Team/FNF-BrainyEngine)
 
 <h1 style="font-size: 60;">Friday Night Funkin': Brainy Engine</h1>
-<img width=800 alt="Brainy Engine Logo" style="justify-content: center" src="https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/art/brainyengine-logo.png?raw=true">
+<div align="center">
+<img width=500 alt="Brainy Engine Logo" style="justify-content: center" src="https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/art/brainyengine-logo.png?raw=true">
+</div>
 
 ---
 
