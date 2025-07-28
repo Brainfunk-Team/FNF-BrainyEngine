@@ -404,6 +404,12 @@ class Tank extends BaseStage
 		var calledTimes:Int = 0;
 		camFollow.setPosition(630, 425);
 		FlxG.camera.snapToTarget();
+
+		if (boyfriend.curCharacter == "pico-and-nene" || boyfriend.curCharacter == "pico-playable")
+			FlxG.camera.zoom = 0.7;
+		else
+			FlxG.camera.zoom = 0.8;
+
 		FlxG.camera.zoom = 0.8;
 		game.cameraSpeed = 1;
 
