@@ -71,8 +71,8 @@ class Tank extends BaseStage
 		if(!ClientPrefs.data.lowQuality) foregroundSprites.add(new BGSprite('tank3', 1300, 1200, 3.5, 2.5, ['fg']));
 
 		// Default GFs
-		if(songName == 'stress') setDefaultGF('pico-speaker');
-		else setDefaultGF('gf-tankmen');
+		//if(songName == 'stress') setDefaultGF('pico-speaker');
+		//else setDefaultGF('gf-tankmen'); //what's even the point of you...
 		
 		if (isStoryMode && !seenCutscene)
 		{

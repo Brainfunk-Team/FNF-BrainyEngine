@@ -278,6 +278,8 @@ class PlayState extends MusicBeatState
 	public var startCallback:Void->Void = null;
 	public var endCallback:Void->Void = null;
 
+	public var isAbot:Bool = false;
+
 	private static var _lastLoadedModDirectory:String = '';
 	public static var nextReloadAll:Bool = false;
 	override public function create()
@@ -455,13 +457,15 @@ class PlayState extends MusicBeatState
 			gfGroup.y += gfOffset[1];
 			gfGroup.scrollFactor.set(0.95, 0.95);
 
-			if (gfVers == "nene" && (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin"))
+			isAbot = (gfVers == "nene" || gfVers == "otis-speaker")
+
+			if (isAbot && (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin"))
 				gfGroup.y -= 225;
 
 			if (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin")
 				aBot = new ABotSpeaker(gf.x - 50, gfGroup.y + 615); //this position has been the bane of my life
 			
-			if (gfVers == "nene")
+			if (isAbot)
 			{
 				if (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin")
 				{
@@ -1459,7 +1463,7 @@ class PlayState extends MusicBeatState
 		setOnScripts('songLength', songLength);
 		callOnScripts('onSongStart');
 
-		if (gf.curCharacter == "nene")
+		if (isAbot)
 			if (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin")
 				aBot.snd = FlxG.sound.music;
 	}
@@ -3582,7 +3586,7 @@ class PlayState extends MusicBeatState
 		setOnScripts('curSection', curSection);
 		callOnScripts('onSectionHit');
 
-		if (gf.curCharacter == "nene")
+		if (isAbot)
 			if (SONG.stage != "phillyStreets" && SONG.stage != "phillyBlazin")
 				updateABotEye(false);
 	}
