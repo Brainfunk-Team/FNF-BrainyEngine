@@ -5,16 +5,27 @@ import psychlua.HScript;
 
 import backend.Mods;
 
+import sys.io.File;
 class HScriptState extends MusicBeatState
 {
     var stateFile:String; //state file under modsfolder/states
     var state:HScript;
+    var code:String;
+
+    public function hasFunction(func:String)
+        return code.contains(func); //lazy...   TODO: MAKE THIS FUNCTION BETTER
 
     public function callFunction(func:String, ?args:Array<Dynamic>=null):Dynamic {
-        if (args == null)
-            return state.call(func, []);
+
+        if hasFunction(func) //this just prevents those annoying errors in the console
+        {
+            if (args == null)
+                return state.call(func, []);
+            else
+                return state.call(func, args);
+        }
         else
-            return state.call(func, args);
+            return null; //bozo tried to run a non existing function lol
     }
 
     override public function new(stateFile)
@@ -22,6 +33,8 @@ class HScriptState extends MusicBeatState
         this.stateFile = stateFile;
 
         var directories:Array<String> = Mods.directoriesWithFile("", "states/" + stateFile, true);
+
+        code = File.getContent(directories[0]);
 
         state = new HScript(null, directories[0], null, false);
         state.set("state", this);
