@@ -2237,6 +2237,34 @@ class PlayState extends MusicBeatState
 				SystemStuff.notification(seperate[0].trim(), seperate[1].trim());
 				SystemStuff.crash(true);
 
+			case "Load state":
+				var stateToLoad:MusicBeatState;
+
+				/*
+				while doing this code i thought it'd be cool if one of the possible states was ChartingState...
+
+				i'm an idiot... -brainy
+				*/
+
+				switch (SONG.sevenEventValue.trim().toLowerCase()) {
+					case "playstate":
+						stateToLoad = new PlayState();
+
+					case "mainmenustate":
+						stateToLoad = new MainMenuState();
+
+					case "storymenustate":
+						stateToLoad = new StoryMenuState();
+
+					case "freeplaystate":
+						stateToLoad = new FreeplayState();
+
+					default:
+						stateToLoad = new HScriptState(SONG.sevenEventValue.trim());
+				}
+
+				LoadingState.loadAndSwitchState(stateToLoad);
+
 			default:
 				canResync = false;
 				FlxG.camera.followLerp = 0;

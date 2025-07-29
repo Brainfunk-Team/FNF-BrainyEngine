@@ -101,7 +101,8 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		["Insta-kill and show notification", "Use the input to specify title and message, seperated by commas"],
 		["Crash game", ""],
 		["Crash game and show popup", "Use the input to specify title and message, seperated by commas"],
-		["Crash game and show notification", "Use the input to specify title and message, seperated by commas"]
+		["Crash game and show notification", "Use the input to specify title and message, seperated by commas"],
+		["Load state", "Use the input to specify which state to load.\nStates go in modsfolder/states as a HScript file."]
 	];
 	
 	public static var keysArray:Array<FlxKey> = [ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT]; //Used for Vortex Editor
@@ -2432,9 +2433,9 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 		tab_group.add(sevenText);
 
-		tab_group.add(sevenDropDown);
-
 		tab_group.add(characterSelect);
+
+		tab_group.add(sevenDropDown); //this needs to be last to avoid graphical issue
 	}
 
 	var playbackSlider:PsychUISlider;
