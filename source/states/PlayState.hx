@@ -827,7 +827,7 @@ class PlayState extends MusicBeatState
 
 	function updateABotEye(finishInstantly:Bool = false)
 	{
-		if(PlayState.SONG.notes[Std.int(FlxMath.bound(curSection, 0, PlayState.SONG.notes.length - 1))].mustHitSection == true)
+		if(PlayState.SONG.notes[Std.int(FlxMath.bound(curSection, 0, SONG.notes.length - 1))].mustHitSection == true)
 			aBot.lookRight();
 		else
 			aBot.lookLeft();
@@ -867,7 +867,20 @@ class PlayState extends MusicBeatState
 
 	function formatBotplayTxt(text:String):String
 	{
-		return text.replace("{notes}", Std.string(SONG.notes.length));
+		return text.replace("{notes}", Std.string(getNoteCount()));
+	}
+	
+	function getNoteCount():Int
+	{
+		var coolNotes:Int = 0;
+
+		for (i in 0..SONG.notes.length-1)
+		{
+			for (j in 0..SONG.notes[i].sectionNotes.length - 1)
+				coolNotes ++;
+		}
+
+		return  coolNotes;
 	}
 
 	function set_songSpeed(value:Float):Float
