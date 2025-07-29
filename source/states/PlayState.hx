@@ -859,17 +859,22 @@ class PlayState extends MusicBeatState
         if (lines.length > 0) {
             var index = Std.random(lines.length);
             var randomLine = lines[index];
-			botplayTxt.text = randomLine;
+			botplayTxt.text = formatBotplayTxt(randomLine);
         } else {
             botplayTxt.text = "BOTPLAY";
         }
+	}
+
+	function formatBotplayTxt(text:String):String
+	{
+		return text.replace("{notes}", Std.string(SONG.notes.length));
 	}
 
 	function set_songSpeed(value:Float):Float
 	{
 		if(generatedMusic)
 		{
-			var ratio:Float = value / songSpeed; //funny word huh
+			var ratio:Float = value / songSpeed; //funny word huh //bro how old is that comment -brainy
 			if(ratio != 1)
 			{
 				for (note in notes.members) note.resizeByRatio(ratio);
