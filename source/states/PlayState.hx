@@ -1573,6 +1573,7 @@ class PlayState extends MusicBeatState
 		try
 		{
 			trace("Checking if pico mix exists.");
+			trace("assets/songs/" + songData.song.toLowerCase() + "/Inst-pico.ogg"); //TODO: ADD MOD FOLDER SUPPORT
 			if (ClientPrefs.getGameplaySetting("picomix") && FileSystem.exists(Paths.getSharedPath() + "songs/" + songData.song.toLowerCase() + "/Inst-pico.ogg"))
 			{
 				inst.loadEmbedded(Paths.instMix(songData.song, "pico"));
