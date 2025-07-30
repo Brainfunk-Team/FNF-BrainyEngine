@@ -865,23 +865,33 @@ class PlayState extends MusicBeatState
         }
 	}
 
+	public var diedToBotplay:Bool = false;
+
 	function formatBotplayTxt(text:String):String
 	{
-		return text.replace("{notes}", Std.string(getNoteCount()));
+		var finalText:String;
+		if (text == "{instakill}")
+		{
+			if (!diedToBotplay)
+			{
+				health = 0;
+				diedToBotplay = true;
+			}
+			finalText = "You died in botplay? You suck.";
+		}
+		finalText = text.replace("{notes}", Std.string(getNoteCount()));
+		finalText = text.replace("\\n", "\n");
+		return finalText;
 	}
 	
-	function getNoteCount():Int
-	{
-		var coolNotes:Int = 0;
-
-		for (i in 0..SONG.notes.length-1)
-		{
-			for (j in 0..SONG.notes[i].sectionNotes.length - 1)
-				coolNotes ++;
+	function getNoteCount():Int {
+		var total = 0;
+		for (section in SONG.notes) {
+			total += section.sectionNotes.length;
 		}
-
-		return  coolNotes;
+		return total;
 	}
+
 
 	function set_songSpeed(value:Float):Float
 	{
@@ -1562,7 +1572,17 @@ class PlayState extends MusicBeatState
 		inst = new FlxSound();
 		try
 		{
-			inst.loadEmbedded(Paths.inst(songData.song));
+			trace("Checking if pico mix exists.");
+			if (ClientPrefs.getGameplaySetting("picomix") || FileSystem.exists(Paths.getSharedPath() + "songs/" + songData.song.toLowerCase() + "/Inst-pico.ogg"))
+			{
+				inst.loadEmbedded(Paths.instMix(songData.song, "pico"));
+				trace("Exists, loading Inst-pico.ogg");
+			}
+			else
+			{
+				inst.loadEmbedded(Paths.inst(songData.song));
+				trace("Doesn't exist! loading normal Inst!");
+			}
 		}
 		catch (e:Dynamic) {}
 		FlxG.sound.list.add(inst);

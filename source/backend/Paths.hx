@@ -225,6 +225,9 @@ class Paths
 	inline static public function inst(song:String, ?modsAllowed:Bool = true):Sound
 		return returnSound('${formatToSongPath(song)}/Inst', 'songs', modsAllowed);
 
+	inline static public function instMix(song:String, ?mix:String = "pico", ?modsAllowed:Bool = true):Sound
+		return returnSound('${formatToSongPath(song)}/Inst-' + mix, 'songs', modsAllowed);
+
 	inline static public function voices(song:String, postfix:String = null, ?modsAllowed:Bool = true):Sound
 	{
 		var songKey:String = '${formatToSongPath(song)}/Voices';
