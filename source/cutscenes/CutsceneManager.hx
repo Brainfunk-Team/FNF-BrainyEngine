@@ -1,3 +1,0 @@
-package cutscenes;
-
-class CutsceneManager {}

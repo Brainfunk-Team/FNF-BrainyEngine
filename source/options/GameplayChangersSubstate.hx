@@ -42,7 +42,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		#if FLX_PITCH
 		var option:GameplayOption = new GameplayOption('Playback Rate', 'songspeed', FLOAT, 1);
 		option.scrollSpeed = 1;
-		option.minValue = 0;
+		option.minValue = -100;
 		option.maxValue = 100;
 		option.changeValue = 0.05;
 		option.displayFormat = '%vX';
