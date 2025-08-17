@@ -33,7 +33,8 @@
 	<define name="BASE_GAME_FILES"/>
 	<define name="VIDEOS_ALLOWED"  if="windows || linux || android" unless="32bits"/>
 	<define name="CHARACTER_SELECT"/>
-	
+	<define name="USE_BRAINY_ENGINE_LOGO"/>
+
 	<define name="MULTITHREADED_LOADING" /> <!-- UNCOMMENTING THIS LINE WILL ENABLE MULTITHREADED LOADING, WHICH IMPROVES LOADING TIMES, BUT APPARENTLY CAN FREEZE THE GAME ON SONG LOAD IN OLDER PCs? -->
 	<define name="SHOW_LOADING_SCREEN" />
 
@@ -198,9 +199,16 @@
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<assets path='art/icons/iconOG.png' rename='icon.png' if="linux || mac" />
-	
-	<icon path="art/icons/icon16.png" size='16'/>
-	<icon path="art/icons/icon32.png" size='32'/>
-	<icon path="art/icons/icon64.png" size='64'/>
-	<icon path="art/icons/iconOG.png" />
+	<section if="USE_BRAINY_ENGINE_LOGO">
+		<icon path="art/icons/icon16.png" size='16'/>
+		<icon path="art/icons/icon32.png" size='32'/>
+		<icon path="art/icons/icon64.png" size='64'/>
+		<icon path="art/icons/iconOG.png" />
+	</section>
+	<section unless="USE_BRAINY_ENGINE_LOGO">
+		<icon path="art/icons/classic/icon16.png" size='16'/>
+		<icon path="art/icons/classic/icon32.png" size='32'/>
+		<icon path="art/icons/classic/icon64.png" size='64'/>
+		<icon path="art/icons/classic/iconOG.png" />
+	</section>
 </project>
