@@ -198,7 +198,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 									case INT, FLOAT, PERCENT:
 										holdValue = curOption.getValue() + add;
 										if(holdValue < curOption.minValue) holdValue = curOption.minValue;
-										else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
+										else if (holdValue > curOption.maxValue) 
+											if (!ClientPrefs.data.uncap)
+												holdValue = curOption.maxValue;
 		
 										if(curOption.type == INT)
 										{
@@ -234,7 +236,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 							else if(curOption.type != STRING)
 							{
 								holdValue += curOption.scrollSpeed * elapsed * (controls.UI_LEFT ? -1 : 1);
-								if(holdValue < curOption.minValue) holdValue = curOption.minValue;
+								if(holdValue < curOption.minValue) 
+									if (!ClientPrefs.data.uncap)
+										holdValue = curOption.minValue;
 								else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
 		
 								switch(curOption.type)

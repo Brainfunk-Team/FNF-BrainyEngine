@@ -68,7 +68,7 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		}
 
 		var option:Option = new Option('Note Splash Opacity',
-			'How much transparent should the Note Splashes be.',
+			'How opaque should the Note Splashes be.',
 			'splashAlpha',
 			PERCENT);
 		option.scrollSpeed = 1.6;
@@ -137,9 +137,20 @@ class VisualsSettingsSubState extends BaseOptionsMenu
 		addOption(option);
 
 		var option:Option = new Option('Vanilla Health Bar Colors',
-			"If checked, enables the vanilla health bar colors rather than based on the icon colors.",
+			"If checked, enables the vanilla health bar colors rather than based on the character.",
 			'vanillaHealthBar',
 			BOOL);
+		addOption(option);
+
+		var option:Option = new Option('Note Scale',
+			'How big the notes should be. (100% is normal size)',
+			'noteScale',
+			PERCENT);
+		option.scrollSpeed = 1;
+		option.minValue = 0.1;
+		option.maxValue = 2;
+		option.changeValue = 0.1;
+		option.decimals = 1;
 		addOption(option);
 
 		super();

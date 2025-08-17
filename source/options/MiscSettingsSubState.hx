@@ -49,6 +49,9 @@ class MiscSettingsSubState extends BaseOptionsMenu
 			BOOL);
 		addOption(option);
 
+		var option:Option = new Option("Uncap settings", "If checked, settings can go past their minimum/maximum amounts.", "uncap", BOOL);
+		addOption(option);
+
 		super();
 	}
 

@@ -53,6 +53,9 @@ import states.TitleState;
 	public var skipSplash:Bool = false;
 	public var botplayTxt:Bool = false;
 
+	public var noteScale:Float = 1.0;
+	public var uncap:Bool = false;
+
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 

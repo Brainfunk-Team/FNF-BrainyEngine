@@ -35,6 +35,7 @@ typedef UIFile = {
     var healthBarScrollFactorX:Float;
     var healthBarScrollFactorY:Float;
     var healthBarVisible:Bool;
+    var font:String;
     var text:Array<Dynamic>;
 }
 
@@ -61,6 +62,7 @@ class UIData {
                 "healthBarVisible": true,
                 "healthBarScrollFactorX": 0,
                 "healthBarScrollFactorY": 0,
+                "font": "vcr",
                 "text": [
                     [0, 680.8, 119.2, true, false, 0, 0, "Score: {score} | Misses: {misses} | Rating: {rating}% - {ratingFC}", "scoreTxt"]
             ]
@@ -78,6 +80,7 @@ class UIData {
                 "healthBarVisible": true,
                 "healthBarScrollFactorX": 0,
                 "healthBarScrollFactorY": 0,
+                "font": "vcr",
                 "text": [
             ]
         };

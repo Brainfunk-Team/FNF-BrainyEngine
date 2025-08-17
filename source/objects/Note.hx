@@ -325,6 +325,11 @@ class Note extends FlxSprite
 			centerOrigin();
 		}
 		x += offsetX;
+
+		this.scale.x = this.scale.x * ClientPrefs.data.noteScale;
+		this.scale.y = this.scale.y * ClientPrefs.data.noteScale;
+
+		updateHitbox();
 	}
 
 	public static function initializeGlobalRGBShader(noteData:Int)

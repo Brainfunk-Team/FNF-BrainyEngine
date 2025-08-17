@@ -609,10 +609,12 @@ class PlayState extends MusicBeatState
 		add(uiGroup);
 		add(noteGroup);
 
+		uiData = UIData.getUIFile(SONG.ui);
+
 		Conductor.songPosition = -Conductor.crochet * 5 + Conductor.offset;
 		var showTime:Bool = (ClientPrefs.data.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
-		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font(uiData.font + ".ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
@@ -657,8 +659,6 @@ class PlayState extends MusicBeatState
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 		moveCameraSection();
-
-		uiData = UIData.getUIFile(SONG.ui);
 
 		var healthBarImage:String = uiData.healthBarImage;
 		var healthBarX:Float = uiData.healthBarX;
@@ -708,7 +708,7 @@ class PlayState extends MusicBeatState
 		uiGroup.add(iconP2);
 
 		scoreTxt = new FlxText(0, healthBar.y + 40, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font(uiData.font + ".ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.data.hideHud;
@@ -720,7 +720,7 @@ class PlayState extends MusicBeatState
 		for (textUI in uiData.text) {
 			uiText.push(new FlxText(textUI[0], textUI[1], FlxG.width, "", 20));
 			uiText[i].scrollFactor.set();
-			uiText[i].setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			uiText[i].setFormat(Paths.font(uiData.font + ".ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			uiText[i].scrollFactor.set();
 			uiText[i].borderSize = 1.25;
 			uiText[i].x = textUI[0];
@@ -734,7 +734,7 @@ class PlayState extends MusicBeatState
 		}
 
 		botplayTxt = new FlxText(400, healthBar.y - 90, FlxG.width - 800, "BOTPLAY", 32);
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botplayTxt.setFormat(Paths.font(uiData.font + ".ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;

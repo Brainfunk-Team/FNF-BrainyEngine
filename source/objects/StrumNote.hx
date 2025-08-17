@@ -61,6 +61,11 @@ class StrumNote extends FlxSprite
 		texture = skin; //Load texture and anims
 		scrollFactor.set();
 		playAnim('static');
+
+		this.scale.x = this.scale.x * ClientPrefs.data.noteScale;
+		this.scale.y = this.scale.y * ClientPrefs.data.noteScale;
+
+		updateHitbox();
 	}
 
 	public function reloadNote()
