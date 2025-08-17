@@ -33,7 +33,7 @@
 	<define name="BASE_GAME_FILES"/>
 	<define name="VIDEOS_ALLOWED"  if="windows || linux || android" unless="32bits"/>
 	<define name="CHARACTER_SELECT"/>
-	<define name="USE_BRAINY_ENGINE_LOGO"/>
+	<define name="USE_BRAINY_ENGINE_LOGO"/> <!--Comment out or deleting this line will compile without the Brainy Engine logo being used for the application. May require a clean compile to work correctly.-->
 
 	<define name="MULTITHREADED_LOADING" /> <!-- UNCOMMENTING THIS LINE WILL ENABLE MULTITHREADED LOADING, WHICH IMPROVES LOADING TIMES, BUT APPARENTLY CAN FREEZE THE GAME ON SONG LOAD IN OLDER PCs? -->
 	<define name="SHOW_LOADING_SCREEN" />
