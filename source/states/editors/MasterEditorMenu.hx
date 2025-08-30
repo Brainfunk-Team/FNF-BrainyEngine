@@ -110,32 +110,35 @@ class MasterEditorMenu extends MusicBeatState
 		if (controls.ACCEPT)
 		{
 			switch(options[curSelected]) {
-				case 'Chart Editor'://felt it would be cool maybe
-					LoadingState.loadAndSwitchState(new ChartingState(), false);
-				case 'Character Editor':
-					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
-				case 'Stage Editor':
-					LoadingState.loadAndSwitchState(new StageEditorState());
-				case 'Week Editor':
-					MusicBeatState.switchState(new WeekEditorState());
-				case 'Menu Character Editor':
-					MusicBeatState.switchState(new MenuCharacterEditorState());
-				case 'Dialogue Editor':
-					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
-				case 'Dialogue Portrait Editor':
-					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
-				case 'Note Splash Editor':
-					MusicBeatState.switchState(new NoteSplashEditorState());
-				case 'UI Editor':
-					//MusicBeatState.switchState(new UIEditorState());
-					var comingSoonText:FlxText = new FlxText(0, 0, FlxG.width, "Coming soon!", 45);
-					comingSoonText.setFormat(Paths.font("vcr.ttf"), 70, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-					add(comingSoonText);
-				case "Modchart Editor":
-					#if LUA_ALLOWED //Wrapping this in a compilation conditional just in case.
-					LoadingState.loadAndSwitchState(new ModchartEditorState()); 
-					#end
-			}
+    case 'Chart Editor'://felt it would be cool maybe
+        LoadingState.loadAndSwitchState(new ChartingState(), false);
+    case 'Character Editor':
+        LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+    case 'Stage Editor':
+        LoadingState.loadAndSwitchState(new StageEditorState());
+    case 'Week Editor':
+        MusicBeatState.switchState(new WeekEditorState());
+    case 'Menu Character Editor':
+        MusicBeatState.switchState(new MenuCharacterEditorState());
+    case 'Dialogue Editor':
+        LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
+    case 'Dialogue Portrait Editor':
+        LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
+    case 'Note Splash Editor':
+        MusicBeatState.switchState(new NoteSplashEditorState());
+    case 'UI Editor':
+        //MusicBeatState.switchState(new UIEditorState());
+        var comingSoonText:FlxText = new FlxText(0, 0, FlxG.width, "Coming soon!", 45);
+        comingSoonText.setFormat(Paths.font("vcr.ttf"), 70, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        add(comingSoonText);
+    case 'Modchart Editor':
+        #if LUA_ALLOWED
+        LoadingState.loadAndSwitchState(new ModchartEditorState()); 
+        #end
+    case 'Window Name Editor':
+        MusicBeatState.switchState(new WindowNameEditor());
+}
+
 			FlxG.sound.music.volume = 0;
 			FreeplayState.destroyFreeplayVocals();
 		}
