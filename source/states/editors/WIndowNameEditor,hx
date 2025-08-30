@@ -6,7 +6,7 @@ import flixel.addons.ui.FlxInputText;
 import flixel.ui.FlxButton;
 import flixel.FlxSprite;
 import flixel.FlxG;
-import states.MainMenuState;
+import states.MasterEditorMenu;
 
 class WindowNameEditor extends FlxState
 {
@@ -63,7 +63,7 @@ class WindowNameEditor extends FlxState
         super.update(elapsed);
 
         if (FlxG.keys.justPressed.ESCAPE)
-            FlxG.switchState(new MainMenuState());
+            FlxG.switchState(new MasterEditorMenu());
     }
 
     override public function destroy():Void
