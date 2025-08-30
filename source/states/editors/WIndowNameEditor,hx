@@ -1,0 +1,74 @@
+package states.editors;
+
+import flixel.FlxState;
+import flixel.text.FlxText;
+import flixel.addons.ui.FlxInputText;
+import flixel.ui.FlxButton;
+import flixel.FlxSprite;
+import flixel.FlxG;
+import states.MainMenuState;
+
+class WindowNameEditor extends FlxState
+{
+    var titleInput:FlxInputText;
+    var titleButton:FlxButton;
+
+    var songList:Array<String> = ["Bopeebo", "Fresh", "Dad Battle", "Tutorial", "Test"];
+    var currentSongIndex:Int = 0;
+    var songDisplay:FlxText;
+    var nextSongButton:FlxButton;
+    var applySongButton:FlxButton;
+
+    override public function create():Void
+    {
+        super.create();
+
+        FlxG.mouse.visible = true;
+
+        var bg = new FlxSprite().loadGraphic(Paths.image("menuBG"));
+        bg.screenCenter();
+        add(bg);
+
+        var titleInfo = new FlxText(50, 20, 0, "type a custom window name:");
+        add(titleInfo);
+
+        titleInput = new FlxInputText(50, 50, 200, "enter title", 16);
+        add(titleInput);
+
+        titleButton = new FlxButton(50, 90, "apply custom name", function() {
+            openfl.Lib.application.window.title = titleInput.text;
+        });
+        add(titleButton);
+
+        songDisplay = new FlxText(50, 150, 0, "current song: " + songList[currentSongIndex]);
+        add(songDisplay);
+
+        nextSongButton = new FlxButton(50, 180, "next song", function() {
+            currentSongIndex++;
+            if (currentSongIndex >= songList.length)
+                currentSongIndex = 0;
+            songDisplay.text = "current song: " + songList[currentSongIndex];
+        });
+        add(nextSongButton);
+
+        applySongButton = new FlxButton(50, 210, "apply song name", function() {
+            var chosenSong = songList[currentSongIndex];
+            openfl.Lib.application.window.title = "now playing: " + chosenSong;
+        });
+        add(applySongButton);
+    }
+
+    override public function update(elapsed:Float):Void
+    {
+        super.update(elapsed);
+
+        if (FlxG.keys.justPressed.ESCAPE)
+            FlxG.switchState(new MainMenuState());
+    }
+
+    override public function destroy():Void
+    {
+        super.destroy();
+        FlxG.mouse.visible = false;
+    }
+}
