@@ -6,7 +6,7 @@ import objects.Character;
 
 import states.MainMenuState;
 import states.FreeplayState;
-
+import states.editors.WindowNameEditor;
 class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
@@ -18,7 +18,8 @@ class MasterEditorMenu extends MusicBeatState
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
 		'Note Splash Editor',
-		'UI Editor' 
+		'UI Editor'
+		'Window Name Editor'
 		#if LUA_ALLOWED ,
 		'Modchart Editor'
 		#end
