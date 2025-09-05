@@ -31,23 +31,8 @@ jobs:
         - name: Compile for iOS
           run: haxelib run lime build ios --app-version="4.0.0-${{ github.run_id }}" -D officialBuild
   
-        - name: Archive with Xcode
-          run: |
-            xcodebuild -workspace export/ios/MyGame.xcworkspace \
-              -scheme MyGame \
-              -sdk iphoneos \
-              -configuration Release \
-              archive -archivePath $PWD/build/MyGame.xcarchive
-  
-        - name: Export IPA
-          run: |
-            xcodebuild -exportArchive \
-              -archivePath $PWD/build/MyGame.xcarchive \
-              -exportOptionsPlist ExportOptions.plist \
-              -exportPath $PWD/build
-  
-        - name: Upload IPA
+        - name: Upload Unsigned .app
           uses: actions/upload-artifact@v4.3.4
           with:
-            name: iOSBuild
-            path: build/MyGame.ipa
+            name: iOSUnsignedApp
+            path: export/ios/$(basename export/ios)/*.app
