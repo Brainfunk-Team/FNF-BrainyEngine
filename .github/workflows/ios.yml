@@ -1,0 +1,53 @@
+name: iOSBuild
+
+on:
+  workflow_dispatch:
+
+jobs:
+  buildIOS:
+  
+      runs-on: macos-15
+      
+      steps:
+        - uses: actions/checkout@v4.1.7
+  
+        - uses: krdlab/setup-haxe@master
+          with:
+            haxe-version: 4.3.4
+  
+        - name: Install Haxelib
+          run: |
+            haxelib setup ~/haxelib
+            haxelib install hxcpp > /dev/null --quiet
+            chmod +x ./setup/unix.sh
+            sh ./setup/unix.sh
+  
+        - name: Skip SScript setup mode
+          run: echo 'oy9:showMacroty8:loopCosti25y10:includeAllfg' >> ~/settings.cocoa
+  
+        - name: Create Version Tag
+          run: echo "${{ github.run_id }}" > VERSION
+  
+        - name: Compile for iOS
+          run: haxelib run lime build ios --app-version="4.0.0-${{ github.run_id }}" -D officialBuild
+  
+        - name: Archive with Xcode
+          run: |
+            xcodebuild -workspace export/ios/MyGame.xcworkspace \
+              -scheme MyGame \
+              -sdk iphoneos \
+              -configuration Release \
+              archive -archivePath $PWD/build/MyGame.xcarchive
+  
+        - name: Export IPA
+          run: |
+            xcodebuild -exportArchive \
+              -archivePath $PWD/build/MyGame.xcarchive \
+              -exportOptionsPlist ExportOptions.plist \
+              -exportPath $PWD/build
+  
+        - name: Upload IPA
+          uses: actions/upload-artifact@v4.3.4
+          with:
+            name: iOSBuild
+            path: build/MyGame.ipa
