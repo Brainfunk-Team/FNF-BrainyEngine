@@ -6,6 +6,8 @@
 <img width=500 alt="Brainy Engine Logo" style="justify-content: center" src="https://github.com/Brainfunk-Team/FNF-BrainyEngine/blob/main/art/brainyengine-logo.png?raw=true">
 </div>
 
+No longer worked on! Please check out [Brainy Psych](https://github.com/Brainy0789/BrainyPsych) for a more updated Psych Fork.
+
 ---
 
 ## Installation:
